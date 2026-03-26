@@ -3,12 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Template Gallery</title>
+    <style>
+        :root {
+            --primary-color: #4f46e5;
+            --bg-color: #f8fafc;
+            --text-color: #1e293b;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        h1 {
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            color: inherit;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #e2e8f0;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .card-desc {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <a href="/template-1/index.html">template-1</a><br>
-    <a href="/template-2/index.html">template-2</a><br>
-    <a href="/template-3/index.html">template-3</a><br>
-    <a href="/template-4/index.html">template-4</a><br>
+
+    <h1>Select a Template</h1>
+
+    <nav class="template-grid">
+        <a href="/template-1/index.html" class="card">
+            <span class="card-icon">📄</span>
+            <span class="card-title">Template 1</span>
+        </a>
+
+        <a href="/template-2/index.html" class="card">
+            <span class="card-icon">🎨</span>
+            <span class="card-title">Template 2</span>
+        </a>
+
+        <a href="/template-3/index.html" class="card">
+            <span class="card-icon">💼</span>
+            <span class="card-title">Template 3</span>
+        </a>
+
+        <a href="/template-4/index.html" class="card">
+            <span class="card-icon">🛒</span>
+            <span class="card-title">Template 4</span>
+        </a>
+
+        <a href="/template-5/index.html" class="card">
+            <span class="card-icon">📱</span>
+            <span class="card-title">Template 5</span>
+        </a>
+    </nav>
+
 </body>
 </html>
