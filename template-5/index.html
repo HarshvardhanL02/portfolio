@@ -1,1 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Makes website responsive on all screen sizes -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harshvardhan Lokhande | Portfolio</title>
 
+  <!-- Link to our external CSS file -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Google Fonts: Syne for headings, DM Sans for body text -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <!-- Fixed top navigation bar with smooth scroll links -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">HVL<span class="dot">.</span></div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#creative-tech">Creative Tech</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <!-- Hamburger icon for mobile view -->
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile navigation menu (hidden by default) -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home" class="mobile-link">Home</a>
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#projects" class="mobile-link">Projects</a>
+    <a href="#creative-tech" class="mobile-link">Creative Tech</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+  </div>
+
+
+  <!-- ===================== HERO SECTION ===================== -->
+  <!-- First thing visitors see — name, title, and a call-to-action -->
+  <section class="hero" id="home">
+    <!-- Background decorative blobs (pure CSS shapes) -->
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <div class="hero-content">
+      <p class="hero-greeting">Hey there 👋, I'm</p>
+      <h1 class="hero-name">Harshvardhan<br /><span class="accent">Lokhande</span></h1>
+      <p class="hero-title">First Year Engineering Student &mdash; Mechanical</p>
+      <p class="hero-subtitle">
+        MIT Academy of Engineering &bull; Exploring Automation, Web Tools &amp; Engineering Systems
+      </p>
+      <!-- CTA button scrolls to projects section -->
+      <a href="#projects" class="btn-primary">View My Work</a>
+    </div>
+
+    <!-- Floating badge: college info -->
+    <div class="hero-badge">
+      <span class="badge-icon">🎓</span>
+      <div>
+        <strong>MITAOE</strong>
+        <small>Pune, Maharashtra</small>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===================== ABOUT SECTION ===================== -->
+  <!-- Personal background, interests, and skills -->
+  <section class="about section" id="about">
+    <div class="container">
+
+      <!-- Section title -->
+      <div class="section-header fade-in">
+        <span class="section-tag">Who I Am</span>
+        <h2>About <span class="accent">Me</span></h2>
+      </div>
+
+      <div class="about-grid">
+        <!-- Left: Text content -->
+        <div class="about-text fade-in">
+          <p>
+            I am a first-year engineering student interested in building
+            technology-driven solutions and exploring how automation and
+            engineering systems can solve real-world problems. I enjoy working
+            on web-based tools and data-driven projects that help students.
+          </p>
+
+          <!-- Fields of Interest -->
+          <div class="interest-cards">
+            <div class="interest-card primary-interest">
+              <span class="interest-icon">⚙️</span>
+              <div>
+                <strong>Automation &amp; Control Systems</strong>
+                <small>Primary Interest</small>
+              </div>
+            </div>
+            <div class="interest-card secondary-interest">
+              <span class="interest-icon">🚀</span>
+              <div>
+                <strong>Aerospace Technologies</strong>
+                <small>Secondary Interest</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Skills -->
+        <div class="skills-box fade-in">
+          <h3>My Skills</h3>
+          <div class="skills-grid">
+            <!-- Each skill tag is a simple styled span -->
+            <span class="skill-tag">HTML</span>
+            <span class="skill-tag">CSS</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">Firebase (Basic)</span>
+            <span class="skill-tag">Problem Solving</span>
+            <span class="skill-tag">Data Handling</span>
+          </div>
+
+          <!-- Education card inside skills box -->
+          <div class="edu-card">
+            <p class="edu-label">Currently Studying</p>
+            <p class="edu-course">B.E. Mechanical Engineering</p>
+            <p class="edu-college">MIT Academy of Engineering, Pune</p>
+            <span class="edu-year">2024 – 2028</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===================== PROJECTS SECTION ===================== -->
+  <!-- Cards for each project with title, description, and tags -->
+  <section class="projects section" id="projects">
+    <div class="container">
+
+      <div class="section-header fade-in">
+        <span class="section-tag">What I've Built</span>
+        <h2>My <span class="accent">Projects</span></h2>
+      </div>
+
+      <div class="projects-grid">
+
+        <!-- Project Card 1: MHT-CET College Predictor -->
+        <div class="project-card fade-in">
+          <div class="card-top">
+            <span class="card-icon">🎯</span>
+            <span class="card-number">01</span>
+          </div>
+          <h3>MHT-CET College Predictor Tool</h3>
+          <p>
+            A web-based tool that helps students predict college options based
+            on their MHT-CET marks and rank. Designed to simplify the
+            admission decision process for thousands of students.
+          </p>
+          <div class="card-tags">
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+            <span>Data Handling</span>
+          </div>
+          <div class="card-footer">
+            <span class="status-dot"></span> Student Utility Tool
+          </div>
+        </div>
+
+        <!-- Project Card 2: Data Extraction Tool -->
+        <div class="project-card fade-in">
+          <div class="card-top">
+            <span class="card-icon">📄</span>
+            <span class="card-number">02</span>
+          </div>
+          <h3>PDF Data Extraction Tool</h3>
+          <p>
+            A tool that extracts structured data from PDF documents for
+            further analysis and usage. Useful for automating manual
+            data-entry tasks and saving time.
+          </p>
+          <div class="card-tags">
+            <span>JavaScript</span>
+            <span>PDF Parsing</span>
+            <span>Data Extraction</span>
+          </div>
+          <div class="card-footer">
+            <span class="status-dot"></span> Productivity Tool
+          </div>
+        </div>
+
+        <!-- Project Card 3: Sample/Placeholder Project -->
+        <div class="project-card fade-in">
+          <div class="card-top">
+            <span class="card-icon">🌐</span>
+            <span class="card-number">03</span>
+          </div>
+          <h3>Student Result Dashboard</h3>
+          <p>
+            A clean dashboard that lets students enter their subject marks
+            and instantly view their semester result summary, CGPA estimate,
+            and performance breakdown.
+          </p>
+          <div class="card-tags">
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+            <span>Firebase</span>
+          </div>
+          <div class="card-footer">
+            <span class="status-dot"></span> In Development
+          </div>
+        </div>
+
+      </div><!-- end .projects-grid -->
+    </div>
+  </section>
+
+
+  <!-- ===================== CREATIVE TECHNOLOGY SECTION ===================== -->
+  <!-- Explains the concept and connects it to Harshvardhan's work -->
+  <section class="creative-tech section" id="creative-tech">
+    <div class="container">
+
+      <div class="section-header fade-in">
+        <span class="section-tag">My Philosophy</span>
+        <h2>Creative <span class="accent">Technology</span></h2>
+      </div>
+
+      <!-- Definition box -->
+      <div class="ct-definition fade-in">
+        <p>
+          <strong>Creative Technology</strong> is the practice of using
+          technology not just to solve problems, but to reimagine how we solve
+          them — combining engineering thinking with creative design to build
+          tools that are both functional and meaningful.
+        </p>
+      </div>
+
+      <!-- Three pillars / connection cards -->
+      <div class="ct-grid">
+        <div class="ct-card fade-in">
+          <span class="ct-icon">⚙️</span>
+          <h4>Automation</h4>
+          <p>
+            Automating repetitive tasks — like manual college selection or
+            PDF data entry — saves time and reduces errors for real users.
+          </p>
+        </div>
+        <div class="ct-card fade-in">
+          <span class="ct-icon">💻</span>
+          <h4>Web Tools</h4>
+          <p>
+            Browser-based tools are accessible to everyone without any
+            installation. That's the power of web technology for real-world
+            problems.
+          </p>
+        </div>
+        <div class="ct-card fade-in">
+          <span class="ct-icon">🔩</span>
+          <h4>Engineering Systems</h4>
+          <p>
+            Engineering is about systems thinking. Whether it's mechanical
+            components or data pipelines, the underlying logic is the same.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ===================== CONTACT SECTION ===================== -->
+  <!-- Simple form UI with basic validation (handled in script.js) -->
+  <section class="contact section" id="contact">
+    <div class="container">
+
+      <div class="section-header fade-in">
+        <span class="section-tag">Get In Touch</span>
+        <h2>Contact <span class="accent">Me</span></h2>
+      </div>
+
+      <div class="contact-wrapper fade-in">
+
+        <!-- Left: info -->
+        <div class="contact-info">
+          <p>Have a project idea, collaboration proposal, or just want to connect? Feel free to drop a message!</p>
+          <div class="contact-detail">
+            <span>📍</span> Nashik / Pune, Maharashtra
+          </div>
+          <div class="contact-detail">
+            <span>🎓</span> MIT Academy of Engineering
+          </div>
+          <div class="contact-detail">
+            <span>💼</span> Open to Internships &amp; Collaborations
+          </div>
+        </div>
+
+        <!-- Right: contact form -->
+        <form class="contact-form" id="contactForm" novalidate>
+          <!-- novalidate: we handle validation ourselves in JS -->
+
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="e.g. Rahul Sharma" />
+            <!-- Error message shown by JS if field is empty -->
+            <span class="error-msg" id="nameError">Please enter your name.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" />
+            <span class="error-msg" id="emailError">Please enter a valid email.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="4" placeholder="Write your message here..."></textarea>
+            <span class="error-msg" id="messageError">Please write a message.</span>
+          </div>
+
+          <!-- Submit button; JS handles the click -->
+          <button type="submit" class="btn-primary" id="submitBtn">Send Message</button>
+
+          <!-- Success message (hidden until form is valid) -->
+          <div class="form-success" id="formSuccess">
+            ✅ Message sent! I'll get back to you soon.
+          </div>
+        </form>
+
+      </div><!-- end .contact-wrapper -->
+    </div>
+  </section>
+
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="footer">
+    <div class="container">
+      <p class="footer-name">Harshvardhan Lokhande</p>
+      <p class="footer-sub">B.E. Mechanical &bull; MITAOE &bull; 2024–2028</p>
+      <p class="footer-copy">&copy; 2024 Harshvardhan Lokhande. Built with HTML, CSS &amp; JavaScript.</p>
+    </div>
+  </footer>
+
+
+  <!-- Link to our external JavaScript file (placed at end of body for performance) -->
+  <script src="script.js"></script>
+
+</body>
+</html>
