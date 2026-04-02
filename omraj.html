@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mukhedkar Family Album</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Earthy, Indie Developer Color Palette */
+        :root {
+            --bg-page: #F7F6F0;        /* Warm Paper */
+            --bg-card: #FFFFFF;        /* Pure White */
+            --text-dark: #2C302E;      /* Charcoal Black */
+            --text-gray: #686D6A;      /* Muted Slate Gray */
+            --primary-color: #3A4F4E;  /* Deep Slate Green */
+            --accent-color: #D67A4F;   /* Rust / Clay Orange */
+            --border-color: #E6E4DC;   /* Warm Gray Border */
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+            --shadow-md: 0 8px 24px rgba(58, 79, 78, 0.12); /* Tinted shadow */
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--bg-page);
+            /* Pro Touch: Subtle Dot Pattern Background */
+            background-image: radial-gradient(#D6D4CB 1px, transparent 1px);
+            background-size: 24px 24px;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Standard Navbar */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 2px solid var(--primary-color);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-name {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-gray);
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Clean Hero Section */
+        .hero {
+            text-align: center;
+            padding: 70px 0 50px;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 12px;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Fixed Image Wrapper - Polaroid Style */
+        .photo-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto 70px;
+            background-color: #FFF;
+            border: 8px solid #FFF; /* Thick white border */
+            border-radius: 4px;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-md);
+            transform: rotate(-1deg); /* Slight tilt for album feel */
+            transition: var(--transition);
+        }
+
+        .photo-container:hover {
+            transform: rotate(0deg) scale(1.01);
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 30%; /* Focus on faces */
+            display: block;
+        }
+
+        /* Standard Section Headers */
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: inline-block;
+            position: relative;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background-color: var(--accent-color);
+            bottom: -8px;
+            left: 25%;
+            border-radius: 2px;
+        }
+
+        /* Simple Roots/Tree Section */
+        .tree-box {
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 70px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+        }
+
+        .tree-row {
+            margin-bottom: 35px;
+            padding-bottom: 25px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .tree-row:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .row-label {
+            font-weight: 700;
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .person-group {
+            display: flex;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .person-item {
+            display: flex;
+            flex-direction: column;
+            border-left: 3px solid var(--border-color);
+            padding-left: 15px;
+        }
+
+        .person-item .name {
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.05rem;
+        }
+
+        .person-item .detail {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            margin-top: 2px;
+        }
+
+        /* Grid for Members */
+        .member-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 90px;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Card Top Accent Line */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: var(--primary-color);
+            transform: scaleX(0);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-color);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-initial {
+            width: 75px;
+            height: 75px;
+            background-color: var(--bg-page);
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            transition: var(--transition);
+        }
+
+        .card:hover .card-initial {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: var(--text-dark);
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: #EBEAE2;
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .card-info {
+            text-align: left;
+            font-size: 0.95rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+            color: var(--text-gray);
+        }
+
+        .card-info p {
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .card-info strong {
+            color: var(--text-dark);
+        }
+
+        /* Solid Colored Footer Area */
+        .info-panel {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .info-panel h2 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .info-panel p {
+            max-width: 750px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        footer {
+            background-color: #212C2B;
+            color: #8C9695;
+            text-align: center;
+            padding: 25px;
+            font-size: 0.9rem;
+        }
+
+        /* Scroll to Top Button */
+        #scrollTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 99;
+            border: none;
+            outline: none;
+            background-color: var(--accent-color);
+            color: white;
+            cursor: pointer;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-size: 20px;
+            font-weight: bold;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+        }
+
+        #scrollTopBtn:hover {
+            background-color: #BF6A43;
+            transform: translateY(-3px);
+        }
+
+        /* Simple Animations */
+        .fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile tweaks */
+        @media (max-width: 600px) {
+            nav ul {
+                gap: 15px;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .person-group {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .photo-container {
+                aspect-ratio: 4 / 3;
+                transform: rotate(0deg);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-content">
+            <div class="brand-name">Mukhedkar Fam.</div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#roots">Roots</a></li>
+                    <li><a href="#members">Members</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero container fade-in">
+        <h1>Welcome to Our Family</h1>
+        <p>Our roots, our values, and the dreams we build together.</p>
+    </section>
+
+    <main class="container">
+        
+        <div class="photo-container fade-in">
+            <img src="image.jpeg" alt="Mukhedkar Family Photo">
+        </div>
+
+        <section id="roots">
+            <div class="section-title">
+                <h2>Our Roots</h2>
+            </div>
+            
+            <div class="tree-box fade-in">
+                <div class="tree-row">
+                    <div class="row-label">Grandparents</div>
+                    <div class="person-group">
+                        <div class="person-item">
+                            <span class="name">Vatsala Mukhedkar</span>
+                            <span class="detail">Housewife</span>
+                        </div>
+                        <div class="person-item">
+                            <span class="name">Dhondiba Mukhedkar</span>
+                            <span class="detail">Farming & Business</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tree-row">
+                    <div class="row-label">Parents</div>
+                    <div class="person-group">
+                        <div class="person-item">
+                            <span class="name">Govind Mukhedkar</span>
+                            <span class="detail">Government Teacher</span>
+                        </div>
+                        <div class="person-item">
+                            <span class="name">Jyoti Mukhedkar</span>
+                            <span class="detail">Housewife</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tree-row">
+                    <div class="row-label">Children</div>
+                    <div class="person-group">
+                        <div class="person-item">
+                            <span class="name">Vaishnavi Mukhedkar</span>
+                            <span class="detail">NEET Aspirant</span>
+                        </div>
+                        <div class="person-item">
+                            <span class="name">Omraj Mukhedkar</span>
+                            <span class="detail">Engineering Student</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="members">
+            <div class="section-title">
+                <h2>The Members</h2>
+            </div>
+
+            <div class="member-grid fade-in">
+                
+                <div class="card">
+                    <div class="card-initial">V</div>
+                    <h3>Vatsala Mukhedkar</h3>
+                    <div class="badge">Ajji</div>
+                    <div class="card-info">
+                        <p><strong>Occupation:</strong> <span>Housewife</span></p>
+                        <p><strong>Role:</strong> <span>Heart of our home.</span></p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-initial">D</div>
+                    <h3>Dhondiba Mukhedkar</h3>
+                    <div class="badge">Ajoba</div>
+                    <div class="card-info">
+                        <p><strong>Occupation:</strong> <span>Farming & Biz</span></p>
+                        <p><strong>Role:</strong> <span>Connected to roots.</span></p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-initial">G</div>
+                    <h3>Govind Mukhedkar</h3>
+                    <div class="badge">Father</div>
+                    <div class="card-info">
+                        <p><strong>Age:</strong> <span>45</span></p>
+                        <p><strong>Occupation:</strong> <span>Govt. Teacher</span></p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-initial">J</div>
+                    <h3>Jyoti Mukhedkar</h3>
+                    <div class="badge">Mother</div>
+                    <div class="card-info">
+                        <p><strong>Age:</strong> <span>40</span></p>
+                        <p><strong>Occupation:</strong> <span>Housewife</span></p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-initial">VM</div>
+                    <h3>Vaishnavi Mukhedkar</h3>
+                    <div class="badge" style="background-color: var(--accent-color); color: white;">Daughter</div>
+                    <div class="card-info">
+                        <p><strong>Age:</strong> <span>20</span></p>
+                        <p><strong>Goal:</strong> <span>NEET Aspirant</span></p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-initial">OM</div>
+                    <h3>Omraj Mukhedkar</h3>
+                    <div class="badge" style="background-color: var(--accent-color); color: white;">Son</div>
+                    <div class="card-info">
+                        <p><strong>Age:</strong> <span>18</span></p>
+                        <p><strong>Goal:</strong> <span>Engineering</span></p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <section class="info-panel">
+        <h2>Our Story</h2>
+        <p>Our family believes in the power of education, hard work, and mutual support. Staying true to our farming roots while working towards academic and professional goals, every member plays a vital role in shaping our shared future.</p>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Mukhedkar Family Portfolio. Built with dedication.</p>
+    </footer>
+
+    <button onclick="topFunction()" id="scrollTopBtn" title="Go to top">↑</button>
+
+    <script>
+        // Get the button
+        let mybutton = document.getElementById("scrollTopBtn");
+
+        // When the user scrolls down 200px from the top, show the button
+        window.onscroll = function() {scrollFunction()};
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+
+</body>
+</html>
