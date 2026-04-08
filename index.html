@@ -1,109 +1,588 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Template Gallery</title>
-    <style>
-        :root {
-            --primary-color: #4f46e5;
-            --bg-color: #f8fafc;
-            --text-color: #1e293b;
-            --card-bg: #ffffff;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 2rem;
-        }
-
-        h1 {
-            margin-bottom: 2rem;
-            font-weight: 300;
-        }
-
-        .template-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            width: 100%;
-            max-width: 1000px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 12px;
-            text-decoration: none;
-            color: inherit;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s, box-shadow 0.2s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            border: 1px solid #e2e8f0;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            border-color: var(--primary-color);
-        }
-
-        .card-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        .card-title {
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-
-        .card-desc {
-            font-size: 0.875rem;
-            color: #64748b;
-            margin-top: 0.5rem;
-            text-align: center;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harshvardhan Lokhande — Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Google Fonts: Syne for headings, Source Code Pro for code-like labels, Inter for body -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Source+Code+Pro:wght@400;500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet" />
 </head>
 <body>
 
-    <h1>Select a Template</h1>
+  <!-- ============================================================
+       NAVBAR
+       Fixed top bar with nav links + hamburger for mobile
+  ============================================================ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-brand">HL<span class="accent">.</span></div>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#home" class="nav-link">Home</a></li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#projects" class="nav-link">Projects</a></li>
+      <li><a href="#creative-tech" class="nav-link">Creative Technology</a></li>
+      <li><a href="#certifications" class="nav-link">Certifications</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+    <!-- Hamburger icon — three lines that toggle on mobile -->
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
 
-    <nav class="template-grid">
-        <a href="/template-1/index.html" class="card">
-            <span class="card-icon">📄</span>
-            <span class="card-title">Template 1</span>
-        </a>
+  <!-- ============================================================
+       HERO SECTION
+       Full-screen intro with name, title, tagline
+  ============================================================ -->
+  <section class="hero" id="home">
+    <!-- Blueprint grid sits in background via CSS -->
+    <div class="hero-grid-overlay"></div>
 
-        <a href="/template-2/index.html" class="card">
-            <span class="card-icon">🎨</span>
-            <span class="card-title">Template 2</span>
-        </a>
+    <div class="hero-content">
+      <!-- Small label above the name -->
+      <p class="hero-label fade-up">MITAOE, Pune &nbsp;·&nbsp; B.Tech Mechanical Engg. 2025–2029</p>
 
-        <a href="/template-3/index.html" class="card">
-            <span class="card-icon">💼</span>
-            <span class="card-title">Template 3</span>
-        </a>
+      <h1 class="hero-name fade-up">Harshvardhan<br />Lokhande</h1>
 
-        <a href="/template-4/index.html" class="card">
-            <span class="card-icon">🛒</span>
-            <span class="card-title">Template 4</span>
-        </a>
+      <p class="hero-title fade-up">Mechanical Engineering Student <span class="accent">&</span> Tech Builder</p>
 
-        <a href="/template-5/index.html" class="card">
-            <span class="card-icon">📱</span>
-            <span class="card-title">Template 5</span>
-        </a>
-    </nav>
+      <p class="hero-tagline fade-up">
+        "Focused on building tools that actually get used,<br class="br-desktop" /> not just projects for marks."
+      </p>
 
+      <div class="hero-cta fade-up">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#contact" class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
+
+    <!-- Decorative corner bracket — engineering aesthetic -->
+    <div class="corner-bracket top-left"></div>
+    <div class="corner-bracket bottom-right"></div>
+
+    <!-- Scroll cue -->
+    <div class="scroll-cue">
+      <span>scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       ABOUT SECTION
+       Bio, field of interest, skills
+  ============================================================ -->
+  <section class="section about" id="about">
+    <div class="container">
+
+      <div class="section-header fade-up">
+        <span class="section-tag">// 01</span>
+        <h2 class="section-title">About Me</h2>
+      </div>
+
+      <div class="about-grid">
+
+        <!-- Bio block -->
+        <div class="about-bio fade-up">
+          <p>
+            I'm a first-year Mechanical Engineering student at MITAOE, Pune. While most of my batch is still finding
+            their footing, I've been building practical tools aimed at solving real student problems — things that
+            actually save time, not just look good in a submission.
+          </p>
+          <p>
+            My first serious project was a <strong>college predictor for MHT-CET</strong> — something I built because
+            I found the admission process needlessly confusing. I extracted cutoff data from government PDFs,
+            structured it, and made it searchable. That experience pulled me deep into data handling and
+            automation thinking.
+          </p>
+          <p>
+            On the engineering side, I'm drawn to <strong>Automation & Control Systems</strong> — the idea that
+            you can design a system once and let it do the repetitive work. I also follow developments in
+            <strong>Aeronautical Technologies</strong>, especially where electronics and control theory
+            overlap with aircraft systems.
+          </p>
+        </div>
+
+        <!-- Right column: interest + skills -->
+        <div class="about-right">
+
+          <!-- Fields of Interest -->
+          <div class="interest-block fade-up">
+            <h3 class="block-label">Fields of Interest</h3>
+            <div class="interest-item primary">
+              <span class="interest-tag">Primary</span>
+              <span class="interest-name">Automation &amp; Control Systems</span>
+            </div>
+            <div class="interest-item secondary">
+              <span class="interest-tag">Secondary</span>
+              <span class="interest-name">Aeronautical Technologies</span>
+            </div>
+          </div>
+
+          <!-- Skills -->
+          <div class="skills-block fade-up">
+            <h3 class="block-label">Skills</h3>
+            <div class="skills-grid">
+
+              <div class="skill-card">
+                <span class="skill-name">HTML &amp; CSS</span>
+                <span class="skill-level strong">Strong</span>
+              </div>
+
+              <div class="skill-card">
+                <span class="skill-name">JavaScript</span>
+                <span class="skill-level intermediate">Intermediate</span>
+              </div>
+
+              <div class="skill-card">
+                <span class="skill-name">Firebase</span>
+                <span class="skill-level basic">Basic</span>
+              </div>
+
+              <div class="skill-card">
+                <span class="skill-name">Problem Solving</span>
+                <span class="skill-level core">Core</span>
+              </div>
+
+              <div class="skill-card">
+                <span class="skill-name">Data Handling</span>
+                <span class="skill-level core">Core</span>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PROJECTS SECTION
+       3 project cards with tags
+  ============================================================ -->
+  <section class="section projects" id="projects">
+    <div class="container">
+
+      <div class="section-header fade-up">
+        <span class="section-tag">// 02</span>
+        <h2 class="section-title">Projects</h2>
+      </div>
+
+      <div class="projects-grid">
+
+        <!-- Project 1 -->
+        <div class="project-card fade-up">
+          <div class="project-number">01</div>
+          <div class="project-content">
+            <h3 class="project-title">MHT-CET College Predictor Tool</h3>
+            <p class="project-desc">
+              Pulls real cutoff data from government PDFs and lets students check their admission chances
+              instantly. Built this because the manual process of going through hundreds of college cutoffs
+              was genuinely painful for students and their families.
+            </p>
+            <div class="project-tags">
+              <span class="tag">HTML/CSS/JS</span>
+              <span class="tag">PDF Data</span>
+              <span class="tag">Student Tool</span>
+              <span class="tag">Data Extraction</span>
+            </div>
+          </div>
+          <div class="project-status">
+            <span class="status-dot"></span> Built &amp; Used
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-card fade-up">
+          <div class="project-number">02</div>
+          <div class="project-content">
+            <h3 class="project-title">PDF Data Extraction Tool</h3>
+            <p class="project-desc">
+              Automates the messy job of pulling structured data out of unstructured PDFs. Reduces manual
+              data entry errors and makes large datasets actually workable. Useful for anyone dealing with
+              government reports or academic data files.
+            </p>
+            <div class="project-tags">
+              <span class="tag">Automation</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">Data Parsing</span>
+              <span class="tag">Workflow</span>
+            </div>
+          </div>
+          <div class="project-status">
+            <span class="status-dot"></span> Functional
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-card fade-up">
+          <div class="project-number">03</div>
+          <div class="project-content">
+            <h3 class="project-title">Student Result Dashboard</h3>
+            <p class="project-desc">
+              A sample project where students input their marks and get a clean performance analysis view.
+              Built as a learning exercise for Firebase integration — handles data storage and retrieval
+              without a traditional backend.
+            </p>
+            <div class="project-tags">
+              <span class="tag">Firebase</span>
+              <span class="tag">Dashboard UI</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">Sample Project</span>
+            </div>
+          </div>
+          <div class="project-status">
+            <span class="status-dot sample"></span> Sample
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CREATIVE TECHNOLOGY SECTION
+       Explanation + personal take + connection to engineering
+  ============================================================ -->
+  <section class="section creative-tech" id="creative-tech">
+    <div class="container">
+
+      <div class="section-header fade-up">
+        <span class="section-tag">// 03</span>
+        <h2 class="section-title">Creative Technology</h2>
+      </div>
+
+      <div class="ct-grid">
+
+        <!-- Definition block -->
+        <div class="ct-block fade-up">
+          <h3 class="ct-sub">What is Creative Technology?</h3>
+          <p>
+            Creative Technology is the space where design thinking, engineering, and digital tools come together
+            to build something that didn't exist before. It's not just coding, and it's not just design —
+            it's using whatever tools are available to solve real problems in ways that are accessible,
+            useful, and often surprisingly simple.
+          </p>
+          <p>
+            In a formal sense, it combines computer science, interaction design, and systems thinking
+            to produce solutions that are both functional and meaningful.
+          </p>
+        </div>
+
+        <!-- Personal take -->
+        <div class="ct-block ct-highlight fade-up">
+          <div class="quote-line"></div>
+          <p class="ct-quote">
+            "For me, creative technology is about solving student-level problems using simple and accessible
+            tools rather than complex systems."
+          </p>
+        </div>
+
+        <!-- Connection to engineering -->
+        <div class="ct-block fade-up">
+          <h3 class="ct-sub">How It Connects to My Work</h3>
+          <div class="ct-connect-grid">
+            <div class="ct-connect-item">
+              <span class="ct-connect-icon">⚙</span>
+              <div>
+                <strong>Automation</strong>
+                <p>Web tools that automate repetitive tasks — like extracting PDF data — mirror the logic
+                of control systems in mechanical engineering.</p>
+              </div>
+            </div>
+            <div class="ct-connect-item">
+              <span class="ct-connect-icon">◈</span>
+              <div>
+                <strong>Web Tools</strong>
+                <p>Browser-based tools are accessible by default. No installation, no learning curve — just
+                open and use. That's engineering-level thinking applied to software.</p>
+              </div>
+            </div>
+            <div class="ct-connect-item">
+              <span class="ct-connect-icon">◻</span>
+              <div>
+                <strong>Engineering Systems</strong>
+                <p>A well-built college predictor is a system — it takes inputs, processes logic, and
+                returns outputs. Same principle as any mechanical control loop.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CERTIFICATIONS SECTION
+       Profile image + certification cards with course info
+  ============================================================ -->
+  <section class="section certifications" id="certifications">
+    <div class="container">
+
+      <div class="section-header fade-up">
+        <span class="section-tag">// 04</span>
+        <h2 class="section-title">Certifications</h2>
+      </div>
+
+      <!-- Profile image block -->
+      <div class="cert-profile fade-up">
+        <div class="cert-profile-img-wrap">
+          <img
+            src="https://ui-avatars.com/api/?name=Harshvardhan+Lokhande&background=1c2330&color=e6a817&size=200&font-size=0.35&bold=true"
+            alt="Harshvardhan Lokhande"
+            class="cert-profile-img"
+          />
+          <div class="cert-profile-ring"></div>
+        </div>
+        <div class="cert-profile-info">
+          <h3 class="cert-profile-name">Harshvardhan Lokhande</h3>
+          <p class="cert-profile-role">Mechanical Engineering Student &amp; Tech Builder</p>
+          <p class="cert-profile-inst">MITAOE, Pune &nbsp;·&nbsp; 2025–2029</p>
+          <div class="cert-profile-stats">
+            <div class="cert-stat">
+              <span class="cert-stat-num">7</span>
+              <span class="cert-stat-label">Certifications</span>
+            </div>
+            <div class="cert-stat-divider"></div>
+            <div class="cert-stat">
+              <span class="cert-stat-num">3</span>
+              <span class="cert-stat-label">Platforms</span>
+            </div>
+            <div class="cert-stat-divider"></div>
+            <div class="cert-stat">
+              <span class="cert-stat-num">2025–26</span>
+              <span class="cert-stat-label">Period</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Certification cards grid -->
+      <div class="cert-grid">
+
+        <!-- Card 1 -->
+        <div class="cert-card fade-up">
+          <div class="cert-card-header">
+            <div class="cert-platform-badge" style="background:#054ada;color:#fff;font-weight:700;padding:4px 10px;border-radius:4px;font-size:0.72rem;letter-spacing:0.05em;">IBM</div>
+            <div class="cert-date"><span class="cert-date-icon">◷</span><span>Mar 2026</span></div>
+          </div>
+          <h3 class="cert-title">Career Management Essentials</h3>
+          <p class="cert-issuer">IBM SkillsBuild</p>
+          <p class="cert-desc">Completed IBM's professional development program covering career planning, personal branding, resume building, and professional communication — focused on achieving excellence in a technical career.</p>
+          <div class="cert-skills">
+            <span class="cert-skill-tag">Career Planning</span>
+            <span class="cert-skill-tag">Personal Branding</span>
+            <span class="cert-skill-tag">Professional Skills</span>
+          </div>
+          <div class="cert-card-footer">
+            <a href="https://www.credly.com/badges/f3e85a7b-5ac2-40ce-b01c-be0b1c1a3731" class="cert-link" target="_blank" rel="noopener">View Certificate <span class="cert-link-arrow">↗</span></a>
+            <div class="cert-verified"><span class="cert-verified-dot"></span>Verified</div>
+          </div>
+        </div>
+
+        <!-- Card 7 -->
+        <div class="cert-card fade-up">
+          <div class="cert-card-header">
+            <div class="cert-platform-badge" style="background:#1d63a8;color:#fff;font-weight:700;padding:4px 10px;border-radius:4px;font-size:0.72rem;letter-spacing:0.05em;">Cisco</div>
+            <div class="cert-date"><span class="cert-date-icon">◷</span><span>Mar 2026</span></div>
+          </div>
+          <h3 class="cert-title">Python Essentials 1</h3>
+          <p class="cert-issuer">Python Institute · via Cisco Networking Academy · MITAOE, Pune</p>
+          <p class="cert-desc">Covered core Python programming — variables, data types, control flow, functions, and basic OOP. Offered through the Cisco Networking Academy program at MIT Academy of Engineering.</p>
+          <div class="cert-skills">
+            <span class="cert-skill-tag">Python</span>
+            <span class="cert-skill-tag">Control Flow</span>
+            <span class="cert-skill-tag">Functions</span>
+            <span class="cert-skill-tag">OOP Basics</span>
+          </div>
+          <div class="cert-card-footer">
+            <a href="#" class="cert-link" target="_blank" rel="noopener">View Certificate <span class="cert-link-arrow">↗</span></a>
+            <div class="cert-verified"><span class="cert-verified-dot"></span>Verified</div>
+          </div>
+        </div>
+
+        <!-- Card 8 -->
+        <div class="cert-card fade-up">
+          <div class="cert-card-header">
+            <div class="cert-platform-badge" style="background:#1d63a8;color:#fff;font-weight:700;padding:4px 10px;border-radius:4px;font-size:0.72rem;letter-spacing:0.05em;">Cisco</div>
+            <div class="cert-date"><span class="cert-date-icon">◷</span><span>Mar 2026</span></div>
+          </div>
+          <h3 class="cert-title">Python Essentials 2</h3>
+          <p class="cert-issuer">Python Institute · via Cisco Networking Academy · MITAOE, Pune</p>
+          <p class="cert-desc">Advanced Python concepts including modules, packages, exceptions, file I/O, and deeper OOP principles. Builds directly on PE1 to give a complete, professional-level Python programming foundation.</p>
+          <div class="cert-skills">
+            <span class="cert-skill-tag">Python</span>
+            <span class="cert-skill-tag">Modules</span>
+            <span class="cert-skill-tag">File I/O</span>
+            <span class="cert-skill-tag">Advanced OOP</span>
+          </div>
+          <div class="cert-card-footer">
+            <a href="#" class="cert-link" target="_blank" rel="noopener">View Certificate <span class="cert-link-arrow">↗</span></a>
+            <div class="cert-verified"><span class="cert-verified-dot"></span>Verified</div>
+          </div>
+        </div>
+
+        <!-- Card 9 -->
+        <div class="cert-card fade-up">
+          <div class="cert-card-header">
+            <div class="cert-platform-badge" style="background:#cc785c;color:#fff;font-weight:700;padding:4px 10px;border-radius:4px;font-size:0.72rem;letter-spacing:0.05em;">Anthropic</div>
+            <div class="cert-date"><span class="cert-date-icon">◷</span><span>Apr 2026</span></div>
+          </div>
+          <h3 class="cert-title">Claude 101</h3>
+          <p class="cert-issuer">Anthropic</p>
+          <p class="cert-desc">Introductory course on working with Claude — covering effective prompting, AI interaction principles, and how to get the most out of large language models for real-world tasks.</p>
+          <div class="cert-skills">
+            <span class="cert-skill-tag">Prompting</span>
+            <span class="cert-skill-tag">AI Interaction</span>
+            <span class="cert-skill-tag">LLMs</span>
+          </div>
+          <div class="cert-card-footer">
+            <a href="#" class="cert-link" target="_blank" rel="noopener">View Certificate <span class="cert-link-arrow">↗</span></a>
+            <div class="cert-verified"><span class="cert-verified-dot"></span>Verified</div>
+          </div>
+        </div>
+
+        <!-- Card 10 -->
+        <div class="cert-card fade-up">
+          <div class="cert-card-header">
+            <div class="cert-platform-badge" style="background:#cc785c;color:#fff;font-weight:700;padding:4px 10px;border-radius:4px;font-size:0.72rem;letter-spacing:0.05em;">Anthropic</div>
+            <div class="cert-date"><span class="cert-date-icon">◷</span><span>Apr 2026</span></div>
+          </div>
+          <h3 class="cert-title">AI Fluency: Framework &amp; Foundations</h3>
+          <p class="cert-issuer">Anthropic · UCC · Ringling College · HEA · National Forum</p>
+          <p class="cert-desc">Core framework for understanding AI systems — how they work, their capabilities and limitations, ethical considerations, and a structured approach to applying AI responsibly across domains.</p>
+          <div class="cert-skills">
+            <span class="cert-skill-tag">AI Fundamentals</span>
+            <span class="cert-skill-tag">AI Ethics</span>
+            <span class="cert-skill-tag">Framework Thinking</span>
+          </div>
+          <div class="cert-card-footer">
+            <a href="#" class="cert-link" target="_blank" rel="noopener">View Certificate <span class="cert-link-arrow">↗</span></a>
+            <div class="cert-verified"><span class="cert-verified-dot"></span>Verified</div>
+          </div>
+        </div>
+
+        <!-- Card 11 -->
+        <div class="cert-card fade-up">
+          <div class="cert-card-header">
+            <div class="cert-platform-badge" style="background:#cc785c;color:#fff;font-weight:700;padding:4px 10px;border-radius:4px;font-size:0.72rem;letter-spacing:0.05em;">Anthropic</div>
+            <div class="cert-date"><span class="cert-date-icon">◷</span><span>Apr 2026</span></div>
+          </div>
+          <h3 class="cert-title">AI Fluency for Students</h3>
+          <p class="cert-issuer">Anthropic · UCC · Ringling College · HEA · National Forum</p>
+          <p class="cert-desc">Tailored AI fluency program for students — how to use AI tools effectively in academic and learning contexts, understanding AI-generated content, and building critical thinking around AI use.</p>
+          <div class="cert-skills">
+            <span class="cert-skill-tag">AI Literacy</span>
+            <span class="cert-skill-tag">Critical Thinking</span>
+            <span class="cert-skill-tag">Academic AI Use</span>
+          </div>
+          <div class="cert-card-footer">
+            <a href="#" class="cert-link" target="_blank" rel="noopener">View Certificate <span class="cert-link-arrow">↗</span></a>
+            <div class="cert-verified"><span class="cert-verified-dot"></span>Verified</div>
+          </div>
+        </div>
+
+        <!-- Card 12 -->
+        <div class="cert-card fade-up">
+          <div class="cert-card-header">
+            <div class="cert-platform-badge" style="background:#cc785c;color:#fff;font-weight:700;padding:4px 10px;border-radius:4px;font-size:0.72rem;letter-spacing:0.05em;">Anthropic</div>
+            <div class="cert-date"><span class="cert-date-icon">◷</span><span>Apr 2026</span></div>
+          </div>
+          <h3 class="cert-title">AI Fluency for Nonprofits</h3>
+          <p class="cert-issuer">Anthropic · GivingTuesday</p>
+          <p class="cert-desc">Specialized AI fluency module for nonprofit and social impact contexts — practical AI applications for mission-driven work, responsible use, and leveraging AI for community benefit.</p>
+          <div class="cert-skills">
+            <span class="cert-skill-tag">AI for Impact</span>
+            <span class="cert-skill-tag">Responsible AI</span>
+            <span class="cert-skill-tag">Social Good</span>
+          </div>
+          <div class="cert-card-footer">
+            <a href="#" class="cert-link" target="_blank" rel="noopener">View Certificate <span class="cert-link-arrow">↗</span></a>
+            <div class="cert-verified"><span class="cert-verified-dot"></span>Verified</div>
+          </div>
+        </div>
+
+      </div><!-- /cert-grid -->
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT SECTION
+       Simple form UI — no backend, just frontend validation
+  ============================================================ -->
+  <section class="section contact" id="contact">
+    <div class="container">
+
+      <div class="section-header fade-up">
+        <span class="section-tag">// 05</span>
+        <h2 class="section-title">Contact</h2>
+      </div>
+
+      <div class="contact-grid">
+
+        <div class="contact-info fade-up">
+          <p>I'm always open to conversations about engineering, tools, or just ideas worth building.
+          Drop a message below.</p>
+          <div class="contact-detail">
+            <span class="contact-label">Location</span>
+            <span>Pune, Maharashtra</span>
+          </div>
+          <div class="contact-detail">
+            <span class="contact-label">Course</span>
+            <span>B.Tech Mechanical Engg.</span>
+          </div>
+          <div class="contact-detail">
+            <span class="contact-label">College</span>
+            <span>MITAOE, Pune</span>
+          </div>
+        </div>
+
+        <!-- Contact form — validation is handled in script.js -->
+        <form class="contact-form fade-up" id="contact-form" novalidate>
+
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" autocomplete="off" />
+            <span class="form-error" id="name-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" autocomplete="off" />
+            <span class="form-error" id="email-error"></span>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="What's on your mind?"></textarea>
+            <span class="form-error" id="message-error"></span>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-submit">Send Message</button>
+          <p class="form-success" id="form-success">Message sent! (Demo — no backend connected)</p>
+
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span class="footer-brand">Harshvardhan Lokhande</span>
+      <span class="footer-copy">B.Tech Mech. Engg. · MITAOE Pune · 2025–2029</span>
+      <span class="footer-made">Built with HTML, CSS &amp; JS</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
