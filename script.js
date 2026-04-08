@@ -74,163 +74,163 @@ const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';   // <- paste here
 // - Image shows in both hero (large) and about (small)
 // - Saved to localStorage so it persists across page reloads
 // ================================================================
-(function injectProfileImage() {
+// (function injectProfileImage() {
 
-  // Load saved image from previous visit
-  let savedImage = null;
-  try { savedImage = localStorage.getItem('hl_profile_image'); } catch(e) {}
+//   // Load saved image from previous visit
+//   let savedImage = null;
+//   try { savedImage = localStorage.getItem('hl_profile_image'); } catch(e) {}
 
-  // Hidden file input — opened on avatar click
-  const fileInput     = document.createElement('input');
-  fileInput.type      = 'file';
-  fileInput.accept    = 'image/*';
-  fileInput.style.display = 'none';
-  document.body.appendChild(fileInput);
+//   // Hidden file input — opened on avatar click
+//   const fileInput     = document.createElement('input');
+//   fileInput.type      = 'file';
+//   fileInput.accept    = 'image/*';
+//   fileInput.style.display = 'none';
+//   document.body.appendChild(fileInput);
 
-  // Build a styled avatar container
-  function createAvatar(size, isHero) {
-    const wrap = document.createElement('div');
-    Object.assign(wrap.style, {
-      width:          size + 'px',
-      height:         size + 'px',
-      borderRadius:   '50%',
-      border:         '2.5px solid rgba(230,168,23,0.55)',
-      boxShadow:      '0 0 0 4px rgba(230,168,23,0.10), 0 8px 32px rgba(0,0,0,0.45)',
-      overflow:       'hidden',
-      cursor:         'pointer',
-      background:     '#161b22',
-      display:        'flex',
-      alignItems:     'center',
-      justifyContent: 'center',
-      flexShrink:     '0',
-      position:       'relative',
-      transition:     'box-shadow 0.25s ease, border-color 0.25s ease',
-    });
+//   // Build a styled avatar container
+//   function createAvatar(size, isHero) {
+//     const wrap = document.createElement('div');
+//     Object.assign(wrap.style, {
+//       width:          size + 'px',
+//       height:         size + 'px',
+//       borderRadius:   '50%',
+//       border:         '2.5px solid rgba(230,168,23,0.55)',
+//       boxShadow:      '0 0 0 4px rgba(230,168,23,0.10), 0 8px 32px rgba(0,0,0,0.45)',
+//       overflow:       'hidden',
+//       cursor:         'pointer',
+//       background:     '#161b22',
+//       display:        'flex',
+//       alignItems:     'center',
+//       justifyContent: 'center',
+//       flexShrink:     '0',
+//       position:       'relative',
+//       transition:     'box-shadow 0.25s ease, border-color 0.25s ease',
+//     });
 
-    // Placeholder icon before image is set
-    const placeholder = document.createElement('div');
-    placeholder.id    = 'avatar-placeholder-' + (isHero ? 'hero' : 'about');
-    Object.assign(placeholder.style, {
-      display:        'flex',
-      flexDirection:  'column',
-      alignItems:     'center',
-      justifyContent: 'center',
-      gap:            '6px',
-      color:          '#e6a817',
-      fontSize:       isHero ? '13px' : '11px',
-      fontFamily:     '"Source Code Pro", monospace',
-      textAlign:      'center',
-      padding:        '8px',
-      pointerEvents:  'none',
-    });
-    placeholder.innerHTML =
-      '<svg width="' + (isHero?32:24) + '" height="' + (isHero?32:24) + '" viewBox="0 0 24 24" fill="none" stroke="#e6a817" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' +
-        '<circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>' +
-      '</svg>' +
-      '<span style="opacity:0.7">' + (isHero ? 'Add Photo' : 'Photo') + '</span>';
+//     // Placeholder icon before image is set
+//     const placeholder = document.createElement('div');
+//     placeholder.id    = 'avatar-placeholder-' + (isHero ? 'hero' : 'about');
+//     Object.assign(placeholder.style, {
+//       display:        'flex',
+//       flexDirection:  'column',
+//       alignItems:     'center',
+//       justifyContent: 'center',
+//       gap:            '6px',
+//       color:          '#e6a817',
+//       fontSize:       isHero ? '13px' : '11px',
+//       fontFamily:     '"Source Code Pro", monospace',
+//       textAlign:      'center',
+//       padding:        '8px',
+//       pointerEvents:  'none',
+//     });
+//     placeholder.innerHTML =
+//       '<svg width="' + (isHero?32:24) + '" height="' + (isHero?32:24) + '" viewBox="0 0 24 24" fill="none" stroke="#e6a817" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' +
+//         '<circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>' +
+//       '</svg>' +
+//       '<span style="opacity:0.7">' + (isHero ? 'Add Photo' : 'Photo') + '</span>';
 
-    // Actual image element
-    const img = document.createElement('img');
-    img.id    = 'avatar-img-' + (isHero ? 'hero' : 'about');
-    Object.assign(img.style, {
-      width:      '100%',
-      height:     '100%',
-      objectFit:  'cover',
-      display:    'none',
-      position:   'absolute',
-      top:        '0',
-      left:       '0',
-    });
+//     // Actual image element
+//     const img = document.createElement('img');
+//     img.id    = 'avatar-img-' + (isHero ? 'hero' : 'about');
+//     Object.assign(img.style, {
+//       width:      '100%',
+//       height:     '100%',
+//       objectFit:  'cover',
+//       display:    'none',
+//       position:   'absolute',
+//       top:        '0',
+//       left:       '0',
+//     });
 
-    // Hover overlay (camera icon)
-    const overlay = document.createElement('div');
-    Object.assign(overlay.style, {
-      position:       'absolute',
-      inset:          '0',
-      background:     'rgba(0,0,0,0)',
-      borderRadius:   '50%',
-      display:        'flex',
-      alignItems:     'center',
-      justifyContent: 'center',
-      opacity:        '0',
-      transition:     'opacity 0.2s ease, background 0.2s ease',
-      zIndex:         '2',
-      pointerEvents:  'none',
-    });
-    overlay.innerHTML =
-      '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' +
-        '<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>' +
-        '<circle cx="12" cy="13" r="4"/>' +
-      '</svg>';
+//     // Hover overlay (camera icon)
+//     const overlay = document.createElement('div');
+//     Object.assign(overlay.style, {
+//       position:       'absolute',
+//       inset:          '0',
+//       background:     'rgba(0,0,0,0)',
+//       borderRadius:   '50%',
+//       display:        'flex',
+//       alignItems:     'center',
+//       justifyContent: 'center',
+//       opacity:        '0',
+//       transition:     'opacity 0.2s ease, background 0.2s ease',
+//       zIndex:         '2',
+//       pointerEvents:  'none',
+//     });
+//     overlay.innerHTML =
+//       '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' +
+//         '<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>' +
+//         '<circle cx="12" cy="13" r="4"/>' +
+//       '</svg>';
 
-    wrap.addEventListener('mouseenter', () => {
-      overlay.style.opacity    = '1';
-      overlay.style.background = 'rgba(0,0,0,0.45)';
-      wrap.style.borderColor   = 'rgba(230,168,23,0.9)';
-    });
-    wrap.addEventListener('mouseleave', () => {
-      overlay.style.opacity    = '0';
-      overlay.style.background = 'rgba(0,0,0,0)';
-      wrap.style.borderColor   = 'rgba(230,168,23,0.55)';
-    });
-    wrap.addEventListener('click', () => fileInput.click());
+//     wrap.addEventListener('mouseenter', () => {
+//       overlay.style.opacity    = '1';
+//       overlay.style.background = 'rgba(0,0,0,0.45)';
+//       wrap.style.borderColor   = 'rgba(230,168,23,0.9)';
+//     });
+//     wrap.addEventListener('mouseleave', () => {
+//       overlay.style.opacity    = '0';
+//       overlay.style.background = 'rgba(0,0,0,0)';
+//       wrap.style.borderColor   = 'rgba(230,168,23,0.55)';
+//     });
+//     wrap.addEventListener('click', () => fileInput.click());
 
-    wrap.appendChild(placeholder);
-    wrap.appendChild(img);
-    wrap.appendChild(overlay);
-    return wrap;
-  }
+//     wrap.appendChild(placeholder);
+//     wrap.appendChild(img);
+//     wrap.appendChild(overlay);
+//     return wrap;
+//   }
 
-  // Apply image src to both avatar instances
-  function applyImage(src) {
-    ['hero', 'about'].forEach(function(id) {
-      var img         = document.getElementById('avatar-img-' + id);
-      var placeholder = document.getElementById('avatar-placeholder-' + id);
-      if (img)         { img.src = src; img.style.display = 'block'; }
-      if (placeholder)   placeholder.style.display = 'none';
-    });
-  }
+//   // Apply image src to both avatar instances
+//   function applyImage(src) {
+//     ['hero', 'about'].forEach(function(id) {
+//       var img         = document.getElementById('avatar-img-' + id);
+//       var placeholder = document.getElementById('avatar-placeholder-' + id);
+//       if (img)         { img.src = src; img.style.display = 'block'; }
+//       if (placeholder)   placeholder.style.display = 'none';
+//     });
+//   }
 
-  fileInput.addEventListener('change', () => {
-    const file = fileInput.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function(e) {
-      var src = e.target.result;
-      applyImage(src);
-      try { localStorage.setItem('hl_profile_image', src); } catch(err) {}
-    };
-    reader.readAsDataURL(file);
-  });
+//   fileInput.addEventListener('change', () => {
+//     const file = fileInput.files[0];
+//     if (!file) return;
+//     const reader = new FileReader();
+//     reader.onload = function(e) {
+//       var src = e.target.result;
+//       applyImage(src);
+//       try { localStorage.setItem('hl_profile_image', src); } catch(err) {}
+//     };
+//     reader.readAsDataURL(file);
+//   });
 
-  function injectAvatars() {
-    // Hero — large avatar above the name
-    const heroContent = document.querySelector('.hero-content');
-    if (heroContent) {
-      const heroWrap = createAvatar(120, true);
-      Object.assign(heroWrap.style, { margin: '0 auto 24px auto' });
-      heroContent.insertBefore(heroWrap, heroContent.firstChild);
-    }
+//   function injectAvatars() {
+//     // Hero — large avatar above the name
+//     const heroContent = document.querySelector('.hero-content');
+//     if (heroContent) {
+//       const heroWrap = createAvatar(120, true);
+//       Object.assign(heroWrap.style, { margin: '0 auto 24px auto' });
+//       heroContent.insertBefore(heroWrap, heroContent.firstChild);
+//     }
 
-    // About — small avatar above the bio text
-    const aboutBio = document.querySelector('.about-bio');
-    if (aboutBio) {
-      const aboutWrap = createAvatar(80, false);
-      aboutWrap.style.marginBottom = '20px';
-      aboutBio.insertBefore(aboutWrap, aboutBio.firstChild);
-    }
+//     // About — small avatar above the bio text
+//     const aboutBio = document.querySelector('.about-bio');
+//     if (aboutBio) {
+//       const aboutWrap = createAvatar(80, false);
+//       aboutWrap.style.marginBottom = '20px';
+//       aboutBio.insertBefore(aboutWrap, aboutBio.firstChild);
+//     }
 
-    // Restore saved image if available
-    if (savedImage) applyImage(savedImage);
-  }
+//     // Restore saved image if available
+//     if (savedImage) applyImage(savedImage);
+//   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', injectAvatars);
-  } else {
-    injectAvatars();
-  }
+//   if (document.readyState === 'loading') {
+//     document.addEventListener('DOMContentLoaded', injectAvatars);
+//   } else {
+//     injectAvatars();
+//   }
 
-})();
+// })();
 
 
 // ================================================================
