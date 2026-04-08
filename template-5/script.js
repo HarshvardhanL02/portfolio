@@ -109,8 +109,8 @@ const observer = new IntersectionObserver(
   }
 );
 
-// Find all elements we want to animate
-const fadeElements = document.querySelectorAll('.fade-in');
+// Find all elements we want to animate (.fade-in and .fade-up)
+const fadeElements = document.querySelectorAll('.fade-in, .fade-up');
 
 // Tell the observer to watch each one
 fadeElements.forEach(function (el) {
