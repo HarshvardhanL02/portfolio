@@ -1,6 +1,76 @@
 // script.js — Portfolio: Harshvardhan Lokhande
 // Three main features: scroll animations, navbar behavior, form validation
 
+// ===========================================================
+// EMAILJS SETUP — Load SDK dynamically (no HTML change needed)
+// ===========================================================
+// EmailJS lets you send emails from pure frontend JavaScript.
+// Step 1: Go to https://www.emailjs.com and create a free account.
+// Step 2: Add an Email Service (Gmail recommended) — copy the Service ID.
+// Step 3: Create an Email Template with these variables:
+//         {{from_name}}, {{from_email}}, {{message}}
+//         Copy the Template ID.
+// Step 4: Go to Account > API Keys — copy your Public Key.
+// Step 5: Replace the three placeholder values below with your real IDs.
+
+const EMAILJS_PUBLIC_KEY  = 'YOUR_PUBLIC_KEY';   // ← paste your EmailJS public key
+const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';   // ← paste your EmailJS service ID
+const EMAILJS_TEMPLATE_ID = 'YOUR_TEMPLATE_ID';  // ← paste your EmailJS template ID
+
+(function loadEmailJS() {
+  const script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+  script.onload = () => {
+    emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
+  };
+  document.head.appendChild(script);
+})();
+
+
+// ===========================================================
+// "BUILT BY" BADGE — Injected dynamically via JS
+// ===========================================================
+// Creates a fixed badge at the bottom-right of the screen.
+// All styling is done inline so zero HTML/CSS changes are needed.
+
+(function injectBuiltByBadge() {
+  const badge = document.createElement('div');
+  badge.id = 'built-by-badge';
+  badge.textContent = '⚙ Built by Harshvardhan L.';
+
+  // All styles applied inline — no CSS file touched
+  Object.assign(badge.style, {
+    position:        'fixed',
+    bottom:          '20px',
+    right:           '20px',
+    background:      'rgba(13, 17, 23, 0.85)',
+    color:           '#e6a817',              // matches --accent from theme
+    border:          '1px solid rgba(230, 168, 23, 0.35)',
+    borderRadius:    '6px',
+    padding:         '6px 12px',
+    fontSize:        '12px',
+    fontFamily:      '"Source Code Pro", monospace',
+    letterSpacing:   '0.04em',
+    backdropFilter:  'blur(8px)',
+    WebkitBackdropFilter: 'blur(8px)',
+    zIndex:          '9999',
+    cursor:          'default',
+    userSelect:      'none',
+    opacity:         '0',
+    transform:       'translateY(10px)',
+    transition:      'opacity 0.5s ease, transform 0.5s ease',
+  });
+
+  document.body.appendChild(badge);
+
+  // Fade the badge in after a short delay so it feels intentional, not jarring
+  setTimeout(() => {
+    badge.style.opacity   = '1';
+    badge.style.transform = 'translateY(0)';
+  }, 800);
+})();
+
+
 // Wait for the HTML to fully load before running any JS
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -164,14 +234,44 @@ document.addEventListener('DOMContentLoaded', () => {
     // If any validation failed, stop here
     if (hasError) return;
 
-    // All good — show success message and reset the form
-    formSuccess.classList.add('show');
-    form.reset();
+    // -----------------------------------------------------------
+    // SEND EMAIL via EmailJS
+    // The template variables {{from_name}}, {{from_email}},
+    // {{message}} must match what you set in your EmailJS template.
+    // The email will land in harshvardhanlokhande762@gmail.com
+    // -----------------------------------------------------------
+    const submitBtn = form.querySelector('.btn-submit');
+    submitBtn.textContent = 'Sending…';
+    submitBtn.disabled = true;
 
-    // Auto-hide the success message after 5 seconds
-    setTimeout(() => {
-      formSuccess.classList.remove('show');
-    }, 5000);
+    emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+      from_name:  name,
+      from_email: email,
+      message:    message,
+      to_email:   'harshvardhanlokhande762@gmail.com'  // for reference in template
+    })
+    .then(() => {
+      // Success — show confirmation and reset form
+      formSuccess.textContent = '✔ Message sent! I\'ll get back to you soon.';
+      formSuccess.classList.add('show');
+      form.reset();
+
+      submitBtn.textContent = 'Send Message';
+      submitBtn.disabled = false;
+
+      // Auto-hide success message after 5 seconds
+      setTimeout(() => {
+        formSuccess.classList.remove('show');
+      }, 5000);
+    })
+    .catch((error) => {
+      // If EmailJS fails (e.g. keys not set up yet), show a clear error
+      console.error('EmailJS error:', error);
+      messageError.textContent = '⚠ Could not send message. Please try again or email directly.';
+
+      submitBtn.textContent = 'Send Message';
+      submitBtn.disabled = false;
+    });
   });
 
 
