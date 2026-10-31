@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Harshvardhan Lokhande — building the TwinSparkTech ecosystem: prediction engines, a government data pipeline, and CounselDesk CRM for MHT-CET admissions." />
+  <meta name="theme-color" content="#0a0a0b" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0b'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-weight='700' font-size='28' fill='%23fafafa' text-anchor='middle'%3EHL%3C/text%3E%3C/svg%3E" />
+  <title>Harshvardhan Lokhande</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ============================================================
+       RESET
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    img, svg { display: block; max-width: 100%; }
+    button { font: inherit; background: none; border: none; cursor: pointer; }
+
+    /* ============================================================
+       DESIGN TOKENS
+    ============================================================ */
+    :root {
+      --bg:            #0a0a0b;
+      --bg-raised:     #111113;
+      --bg-hover:      #17171a;
+      --border:        rgba(255,255,255,0.10);
+      --border-hover:  rgba(255,255,255,0.20);
+
+      --text:          #fafafa;
+      --text-secondary:#a3a3a8;
+      --text-tertiary: #6b6b70;
+
+      --accent:        #3b82f6;
+      --accent-hover:  #60a5fa;
+      --accent-soft:   rgba(59,130,246,0.10);
+      --accent-border: rgba(59,130,246,0.35);
+
+      --success: #22c55e;
+
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, Consolas, monospace;
+
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --dur-s: 0.15s;
+      --dur-m: 0.4s;
+
+      --container: 1160px;
+      --gutter: clamp(20px, 5vw, 64px);
+      --section-pad: clamp(72px, 10vw, 128px);
+
+      --r-sm: 6px;
+      --r-md: 10px;
+      --r-lg: 16px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    ::selection { background: var(--accent); color: #fff; }
+    a { color: inherit; }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: -100px;
+      left: 16px;
+      z-index: 1000;
+      background: var(--accent);
+      color: #fff;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: var(--r-sm);
+      transition: top var(--dur-s) var(--ease);
+    }
+    .skip-link:focus { top: 16px; }
+
+    section { position: relative; }
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+    }
+
+    /* ============================================================
+       TYPE HELPERS
+    ============================================================ */
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+    }
+    .sec-head { margin-bottom: clamp(40px, 6vw, 64px); }
+    .sec-title {
+      font-size: clamp(26px, 3.2vw, 36px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-top: 10px;
+    }
+    .sec-sub {
+      font-size: 15.5px;
+      color: var(--text-secondary);
+      max-width: 480px;
+      margin-top: 10px;
+      line-height: 1.65;
+    }
+
+    /* ============================================================
+       BUTTONS
+    ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-sans);
+      font-weight: 500;
+      font-size: 14px;
+      text-decoration: none;
+      padding: 11px 20px;
+      border-radius: var(--r-sm);
+      transition: background var(--dur-s) var(--ease), border-color var(--dur-s) var(--ease), color var(--dur-s) var(--ease), transform var(--dur-s) var(--ease);
+      white-space: nowrap;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary { background: var(--text); color: #0a0a0b; border: 1px solid var(--text); }
+    .btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); color: #fff; }
+    .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border-hover); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-sm { padding: 7px 14px; font-size: 13px; }
+    .btn-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 13.5px; font-weight: 500; color: var(--text-secondary);
+      text-decoration: none; transition: color var(--dur-s);
+    }
+    .btn-link:hover { color: var(--accent); }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      color: var(--text-tertiary);
+    }
+
+    /* ============================================================
+       REVEAL — fade + translate only
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+      transition-delay: calc(var(--i, 0) * 60ms);
+    }
+    .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+    /* ============================================================
+       NAV
+    ============================================================ */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 500;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      background: rgba(10,10,11,0.7);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      transition: border-color var(--dur-m) var(--ease), background var(--dur-m) var(--ease);
+    }
+    #nav.scrolled { border-bottom-color: var(--border); background: rgba(10,10,11,0.85); }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+    .logo {
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: -0.01em;
+      text-decoration: none;
+      color: var(--text);
+    }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color var(--dur-s);
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-actions { display: flex; align-items: center; gap: 14px; }
+    .nav-icon { color: var(--text-secondary); transition: color var(--dur-s); display: flex; }
+    .nav-icon:hover { color: var(--text); }
+    .nav-toggle {
+      display: none;
+      width: 34px; height: 34px;
+      align-items: center; justify-content: center;
+      color: var(--text);
+    }
+    .nav-toggle svg { width: 20px; height: 20px; }
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      top: 60px; left: 0; right: 0;
+      z-index: 499;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 8px var(--gutter) 20px;
+      flex-direction: column;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity var(--dur-m) var(--ease), transform var(--dur-m) var(--ease);
+      pointer-events: none;
+    }
+    .nav-mobile.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .nav-mobile a {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-mobile a:last-child { border-bottom: none; }
+
+    @media (max-width: 760px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+      .nav-mobile { display: flex; }
+    }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    #hero {
+      padding: calc(60px + clamp(64px, 12vh, 140px)) 0 clamp(64px, 10vh, 120px);
+    }
+    .hero-role {
+      font-size: clamp(17px, 1.8vw, 20px);
+      font-weight: 500;
+      color: var(--accent);
+      margin-top: 22px;
+    }
+    .hero-name {
+      font-size: clamp(38px, 6.4vw, 68px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.04;
+      margin-top: 4px;
+      max-width: 15ch;
+    }
+    .hero-lede {
+      font-size: clamp(16px, 1.6vw, 18px);
+      color: var(--text-secondary);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-top: 24px;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 36px; }
+
+    @media (max-width: 480px) {
+      .hero-actions { width: 100%; }
+      .hero-actions .btn { flex: 1; justify-content: center; }
+    }
+
+    /* ============================================================
+       PROJECTS
+    ============================================================ */
+    #projects { padding: var(--section-pad) 0; border-top: 1px solid var(--border); }
+
+    .project-list { list-style: none; display: flex; flex-direction: column; gap: clamp(48px, 6vw, 80px); }
+
+    .project {
+      display: grid;
+      grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+      gap: clamp(32px, 5vw, 56px);
+      align-items: start;
+    }
+    .project:nth-child(even) .project-visual { order: 2; }
+
+    /* browser-chrome style placeholder visual */
+    .project-visual {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      background: var(--bg-raised);
+    }
+    .pv-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-hover);
+    }
+    .pv-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border-hover); }
+    .pv-url {
+      margin-left: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-tertiary);
+      padding: 3px 10px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      flex: 1;
+      max-width: 260px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .pv-body {
+      aspect-ratio: 16 / 11;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(ellipse 60% 60% at 30% 20%, var(--accent-soft), transparent 70%);
+    }
+    .pv-icon { width: 46px; height: 46px; color: var(--text-tertiary); }
+    .project.in-view .pv-icon { color: var(--accent); }
+
+    .project-content { max-width: 520px; }
+    .project-title { font-size: clamp(20px, 2.2vw, 25px); font-weight: 700; letter-spacing: -0.01em; margin-bottom: 10px; }
+    .project-desc { font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 22px; }
+
+    .project-fields { display: flex; flex-direction: column; gap: 12px; margin-bottom: 22px; }
+    .pf-row { display: grid; grid-template-columns: 76px 1fr; gap: 14px; }
+    .pf-label { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-tertiary); padding-top: 2px; }
+    .pf-value { font-size: 13.5px; color: var(--text-secondary); line-height: 1.6; }
+
+    .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 22px; }
+    .ptag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 4px 9px;
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      color: var(--text-secondary);
+    }
+
+    .project-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+    .project-actions .btn-link.disabled { color: var(--text-tertiary); pointer-events: none; }
+
+    @media (max-width: 860px) {
+      .project { grid-template-columns: 1fr; }
+      .project:nth-child(even) .project-visual { order: 0; }
+      .project-content { max-width: none; }
+    }
+
+    /* flagship platform block */
+    .flagship { margin-bottom: clamp(56px, 7vw, 88px); }
+    .flagship-visual {
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      background: var(--bg-raised);
+      margin-bottom: 32px;
+    }
+    .flagship-visual .pv-body { aspect-ratio: 21 / 8; }
+    .flagship-head { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 10px; }
+    .flagship-head .project-title { margin-bottom: 0; }
+    .flagship-body { max-width: 640px; }
+    .stack-strip {
+      display: flex; flex-wrap: wrap; gap: 6px 18px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-tertiary);
+      padding: 14px 0;
+      margin-bottom: 22px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .stack-strip strong { color: var(--text-secondary); font-weight: 500; }
+
+    .modules { margin-top: clamp(36px, 5vw, 56px); }
+    .modules-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 6px; }
+    .modules-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 48px;
+    }
+    .module-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 16px 0;
+      border-top: 1px solid var(--border);
+    }
+    .modules-grid .module-row:nth-child(1),
+    .modules-grid .module-row:nth-child(2) { border-top: none; }
+    .module-main { display: flex; flex-direction: column; gap: 3px; }
+    .module-name { font-weight: 600; font-size: 14px; }
+    .module-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; max-width: 320px; }
+    .module-status { font-family: var(--font-mono); font-size: 11px; color: var(--text-tertiary); white-space: nowrap; padding-top: 2px; }
+    .module-status.live { color: var(--accent); }
+    a.module-status.live:hover { color: var(--accent-hover); }
+
+    @media (max-width: 700px) {
+      .modules-grid { grid-template-columns: 1fr; }
+      .modules-grid .module-row:nth-child(2) { border-top: 1px solid var(--border); }
+    }
+
+    /* secondary / other builds */
+    .other-builds {
+      margin-top: clamp(48px, 6vw, 80px);
+      padding-top: clamp(32px, 5vw, 48px);
+      border-top: 1px solid var(--border);
+    }
+    .ob-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 18px; }
+    .ob-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 0;
+      border-top: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .ob-row:first-of-type { border-top: none; }
+    .ob-main { display: flex; flex-direction: column; gap: 4px; }
+    .ob-title { font-weight: 600; font-size: 14.5px; }
+    .ob-desc { font-size: 13.5px; color: var(--text-secondary); max-width: 480px; }
+
+    /* ============================================================
+       ABOUT
+    ============================================================ */
+    #about { padding: var(--section-pad) 0; border-top: 1px solid var(--border); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: clamp(32px, 6vw, 64px);
+    }
+    .about-text p { font-size: 16px; color: var(--text-secondary); line-height: 1.8; max-width: 62ch; }
+    .about-text p + p { margin-top: 16px; }
+    .about-text strong { color: var(--text); font-weight: 600; }
+
+    @media (max-width: 760px) {
+      .about-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ============================================================
+       STACK
+    ============================================================ */
+    #stack { padding: var(--section-pad) 0; border-top: 1px solid var(--border); }
+    .stack-groups {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: clamp(28px, 4vw, 48px);
+    }
+    .stack-group-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 16px; }
+    .stack-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .stack-list li { font-size: 14.5px; color: var(--text); }
+
+    @media (max-width: 860px) { .stack-groups { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) { .stack-groups { grid-template-columns: 1fr; } }
+
+    /* ============================================================
+       EXPERIENCE / EDUCATION
+    ============================================================ */
+    #experience { padding: var(--section-pad) 0; border-top: 1px solid var(--border); }
+    .exp-list { list-style: none; display: flex; flex-direction: column; }
+    .exp-row {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 24px;
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
+    }
+    .exp-row:first-child { border-top: none; padding-top: 0; }
+    .exp-period { font-family: var(--font-mono); font-size: 12.5px; color: var(--text-tertiary); padding-top: 2px; }
+    .exp-title { font-weight: 600; font-size: 15.5px; margin-bottom: 6px; }
+    .exp-org { font-size: 13.5px; color: var(--accent); margin-bottom: 8px; }
+    .exp-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.7; max-width: 520px; }
+
+    @media (max-width: 600px) {
+      .exp-row { grid-template-columns: 1fr; gap: 8px; }
+    }
+
+    /* ============================================================
+       CONTACT
+    ============================================================ */
+    #contact { padding: var(--section-pad) 0; border-top: 1px solid var(--border); }
+    .contact-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: clamp(40px, 6vw, 80px); }
+
+    .contact-intro { font-size: 16px; color: var(--text-secondary); line-height: 1.7; max-width: 440px; margin-top: 14px; margin-bottom: 32px; }
+    .contact-links { display: flex; flex-direction: column; gap: 10px; }
+    .clink {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      font-size: 14px;
+      transition: border-color var(--dur-s), background var(--dur-s);
+    }
+    .clink .arrow { color: var(--text-tertiary); transition: transform var(--dur-s), color var(--dur-s); }
+    .clink:hover { border-color: var(--accent-border); background: var(--accent-soft); }
+    .clink:hover .arrow { transform: translate(2px, -2px); color: var(--accent); }
+
+    #contact-form { position: relative; }
+    .cf-group { position: relative; margin-bottom: 16px; }
+    .cf-input, .cf-textarea {
+      width: 100%;
+      background: var(--bg-raised);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 14.5px;
+      padding: 22px 16px 9px;
+      outline: none;
+      transition: border-color var(--dur-s);
+      resize: none;
+    }
+    .cf-textarea { min-height: 116px; padding-top: 24px; }
+    .cf-input:focus, .cf-textarea:focus { border-color: var(--accent); }
+    .cf-input::placeholder, .cf-textarea::placeholder { color: transparent; }
+
+    .cf-label {
+      position: absolute;
+      left: 16px; top: 15px;
+      font-size: 14.5px;
+      color: var(--text-tertiary);
+      pointer-events: none;
+      transition: all var(--dur-s) var(--ease);
+    }
+    .cf-input:focus + .cf-label,
+    .cf-input:not(:placeholder-shown) + .cf-label,
+    .cf-textarea:focus + .cf-label,
+    .cf-textarea:not(:placeholder-shown) + .cf-label {
+      top: 7px;
+      font-size: 10.5px;
+      color: var(--accent);
+    }
+
+    .cf-error { font-size: 12px; color: #f87171; margin-top: 5px; display: none; }
+    .cf-error.show { display: block; }
+
+    .cf-submit {
+      width: 100%;
+      padding: 14px;
+      background: var(--text);
+      color: #0a0a0b;
+      border-radius: var(--r-md);
+      font-weight: 600;
+      font-size: 14.5px;
+      transition: background var(--dur-s), transform var(--dur-s);
+      margin-top: 4px;
+    }
+    .cf-submit:hover { background: var(--accent-hover); color: #fff; }
+    .cf-submit:active { transform: scale(0.98); }
+
+    .cf-success {
+      display: none;
+      text-align: center;
+      padding: 40px 16px;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    .cf-success.show { display: flex; }
+    .cf-success-icon {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent);
+      opacity: 0;
+      transform: scale(0.8);
+      animation: pop-in var(--dur-m) var(--ease) forwards;
+    }
+    @keyframes pop-in { to { opacity: 1; transform: scale(1); } }
+    .cf-success-title { font-weight: 600; font-size: 17px; }
+    .cf-success-text { font-size: 13.5px; color: var(--text-secondary); max-width: 300px; line-height: 1.6; }
+    .cf-reset { font-size: 12.5px; font-weight: 500; color: var(--accent); margin-top: 4px; }
+
+    @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr; } }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer { border-top: 1px solid var(--border); padding: 28px 0; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .footer-copy { font-size: 13px; color: var(--text-tertiary); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 13px; color: var(--text-secondary); text-decoration: none; transition: color var(--dur-s); }
+    .footer-links a:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header id="nav">
+    <div class="nav-inner container">
+      <a class="logo" href="#top">Harshvardhan Lokhande</a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#projects">Work</a>
+        <a href="#about">About</a>
+        <a href="#stack">Stack</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="nav-icon" href="https://github.com/HarshvardhanL02" target="_blank" rel="noopener" aria-label="GitHub profile">
+          <svg viewBox="0 0 24 24" width="19" height="19" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a10.98 10.98 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.15 0 1.55-.01 2.8-.01 3.18 0 .3.2.66.79.55A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></svg>
+        </a>
+        <a class="btn btn-sm btn-primary" href="#contact">Contact</a>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="3" y1="7" x2="21" y2="7"/><line x1="3" y1="17" x2="21" y2="17"/></svg>
+        </button>
+      </div>
+    </div>
+    <nav class="nav-mobile" id="nav-mobile" aria-label="Mobile">
+      <a href="#projects">Work</a>
+      <a href="#about">About</a>
+      <a href="#stack">Stack</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- ═══ HERO ═══ -->
+    <section id="top" aria-label="Introduction">
+      <div class="container" id="hero">
+        <p class="tag">MITAOE, Pune — B.Tech Mechanical Engineering, 2025–2029</p>
+        <p class="hero-role">Building software students actually use</p>
+        <h1 class="hero-name">Harshvardhan Lokhande</h1>
+        <p class="hero-lede">
+          I design and build <strong>TwinSparkTech</strong> — an ecosystem of prediction engines, a government
+          data pipeline, and a counselling CRM that together cover the full MHT-CET admissions cycle, for
+          students and the mentors who guide them.
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">View projects</a>
+          <a href="#contact" class="btn btn-outline">Get in touch</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ PROJECTS / ECOSYSTEM ═══ -->
+    <section id="projects" aria-labelledby="projects-title">
+      <div class="container">
+        <div class="sec-head reveal">
+          <p class="eyebrow">Work</p>
+          <h2 class="sec-title" id="projects-title">The TwinSparkTech ecosystem</h2>
+          <p class="sec-sub">One platform, three connected systems — from raw government data to the tools students and mentors use every admissions cycle.</p>
+        </div>
+
+        <!-- ═ FLAGSHIP: TwinSparkTech Platform ═ -->
+        <div class="flagship reveal" id="project-twinsparktech">
+          <div class="flagship-visual">
+            <div class="pv-bar">
+              <span class="pv-dot"></span><span class="pv-dot"></span><span class="pv-dot"></span>
+              <span class="pv-url">twinsparktech.online</span>
+            </div>
+            <div class="pv-body">
+              <svg class="pv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            </div>
+          </div>
+          <div class="flagship-body">
+            <div class="flagship-head">
+              <h3 class="project-title">TwinSparkTech Platform</h3>
+              <span class="tag">Parent platform</span>
+            </div>
+            <p class="project-desc">A complete MHT-CET platform that helps students predict colleges, analyze cutoffs, explore seat matrices, estimate ranks, and generate recommendations — with counselling tools for the mentors guiding them.</p>
+            <div class="project-fields">
+              <div class="pf-row"><span class="pf-label">Problem</span><span class="pf-value">MHT-CET admissions data is scattered, hard to search, and mostly locked inside government PDFs — students and counsellors were left triangulating decisions manually.</span></div>
+              <div class="pf-row"><span class="pf-label">Solution</span><span class="pf-value">A Next.js platform on Cloudflare Workers that unifies prediction, cutoff exploration, seat matrix data and counselling workflows on one shared data layer.</span></div>
+              <!-- METRIC: add real figure, e.g. "X,000+ predictions generated" -->
+              <div class="pf-row"><span class="pf-label">Impact</span><span class="pf-value">The parent platform tying every system below into one connected admissions workflow.</span></div>
+            </div>
+            <div class="stack-strip">
+              <span><strong>Frontend</strong> Next.js</span>
+              <span><strong>Backend</strong> Cloudflare Workers</span>
+              <span><strong>Database</strong> Firebase</span>
+              <span><strong>Infra</strong> Cloudflare</span>
+            </div>
+            <div class="project-actions">
+              <a href="https://twinsparktech.online" class="btn-link" target="_blank" rel="noopener">Live site ↗</a>
+            </div>
+          </div>
+
+          <div class="modules">
+            <p class="modules-label">Modules &amp; services</p>
+            <div class="modules-grid">
+              <div class="module-row">
+                <div class="module-main">
+                  <span class="module-name">College Predictor</span>
+                  <span class="module-desc">Admission-chance predictions from official CAP cutoff data, filterable by category, seat type, branch and college.</span>
+                </div>
+                <a class="module-status live" href="https://predictor.twinsparktech.online/college-predictor" target="_blank" rel="noopener">Live ↗</a>
+              </div>
+              <div class="module-row">
+                <div class="module-main">
+                  <span class="module-name">College Insight</span>
+                  <span class="module-desc">Analytics dashboard for branch data, cutoff trends and college information.</span>
+                </div>
+                <a class="module-status live" href="https://insight.twinsparktech.online" target="_blank" rel="noopener">Live ↗</a>
+              </div>
+              <div class="module-row">
+                <div class="module-main">
+                  <span class="module-name">Rank Predictor</span>
+                  <span class="module-desc">Predicts MHT-CET rank from percentile using historical official data.</span>
+                </div>
+                <span class="module-status">Built-in</span>
+              </div>
+              <div class="module-row">
+                <div class="module-main">
+                  <span class="module-name">Percentile Predictor</span>
+                  <span class="module-desc">Estimates MHT-CET percentile from raw scores.</span>
+                </div>
+                <span class="module-status">Built-in</span>
+              </div>
+              <div class="module-row">
+                <div class="module-main">
+                  <span class="module-name">Seat Matrix Explorer</span>
+                  <span class="module-desc">Interactive explorer for official seat matrix data by college, branch, category and seat type.</span>
+                </div>
+                <span class="module-status">Built-in</span>
+              </div>
+              <div class="module-row">
+                <div class="module-main">
+                  <span class="module-name">CAP Round Intelligence</span>
+                  <span class="module-desc">Analyzes cutoff trends and admission probability across previous CAP rounds.</span>
+                </div>
+                <span class="module-status">Built-in</span>
+              </div>
+              <div class="module-row">
+                <div class="module-main">
+                  <span class="module-name">Recommendation Generator</span>
+                  <span class="module-desc">Generates personalized college recommendation PDFs from a student's prediction results.</span>
+                </div>
+                <span class="module-status">Built-in</span>
+              </div>
+              <div class="module-row">
+                <div class="module-main">
+                  <span class="module-name">Worker APIs</span>
+                  <span class="module-desc">Custom Cloudflare Worker APIs powering prediction, search, filtering and data delivery platform-wide.</span>
+                </div>
+                <span class="module-status">Infrastructure</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <ul class="project-list">
+
+          <li class="project reveal" id="project-data-engine">
+            <div class="project-visual">
+              <div class="pv-bar">
+                <span class="pv-dot"></span><span class="pv-dot"></span><span class="pv-dot"></span>
+                <span class="pv-url">extract_pipeline.py</span>
+              </div>
+              <div class="pv-body">
+                <svg class="pv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 15h6M9 11h3"/></svg>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">Government PDF Data Engine</h3>
+              <p class="project-desc">The pipeline that turns raw, unstructured government counselling PDFs into the structured JSON every TwinSparkTech tool runs on.</p>
+              <div class="project-fields">
+                <div class="pf-row"><span class="pf-label">Problem</span><span class="pf-value">Government CAP and counselling data is published as unstructured, inconsistent PDFs — unusable directly by any prediction or search system.</span></div>
+                <div class="pf-row"><span class="pf-label">Solution</span><span class="pf-value">Built a JavaScript/Python extraction pipeline, open-sourced as CET Extractor, then upgraded it into a dedicated engine that parses, validates and normalizes records into production-ready JSON.</span></div>
+                <!-- METRIC: add real figure, e.g. "X,000+ cutoff records processed per admission cycle" -->
+                <div class="pf-row"><span class="pf-label">Impact</span><span class="pf-value">Powers the data layer behind the College Predictor and every other tool in the ecosystem.</span></div>
+              </div>
+              <div class="project-tags">
+                <span class="ptag">JavaScript</span>
+                <span class="ptag">Python</span>
+                <span class="ptag">PDF Processing</span>
+                <span class="ptag">Data Validation</span>
+              </div>
+              <div class="project-actions">
+                <a href="https://github.com/HarshvardhanL02/Twinsparktech.online/tree/main/CET_Extractor_2.0" class="btn-link" target="_blank" rel="noopener">View code ↗</a>
+              </div>
+            </div>
+          </li>
+
+          <li class="project reveal" id="project-counseldesk">
+            <div class="project-visual">
+              <div class="pv-bar">
+                <span class="pv-dot"></span><span class="pv-dot"></span><span class="pv-dot"></span>
+                <span class="pv-url">counseldesk (private)</span>
+              </div>
+              <div class="pv-body">
+                <svg class="pv-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 19V5M10 19V9M16 19v-6M22 19H2"/></svg>
+              </div>
+            </div>
+            <div class="project-content">
+              <h3 class="project-title">CounselDesk CRM</h3>
+              <p class="project-desc">A counselling management platform built for mentors and education consultants — the operational side of MHT-CET admissions, separate from the student-facing tools.</p>
+              <div class="project-fields">
+                <div class="pf-row"><span class="pf-label">Problem</span><span class="pf-value">Mentors and consultants running MHT-CET counselling had no dedicated system — just spreadsheets and manual tracking for students, documents and bookings.</span></div>
+                <div class="pf-row"><span class="pf-label">Solution</span><span class="pf-value">A full CRM on Cloudflare D1 and R2 with role-based dashboards covering the counselling workflow end-to-end, from lead to booking to recommendation.</span></div>
+                <!-- METRIC: add real figure once available -->
+                <div class="pf-row"><span class="pf-label">Impact</span><span class="pf-value">Gives mentors one system for the full counselling workflow instead of scattered spreadsheets.</span></div>
+              </div>
+              <div class="project-tags">
+                <span class="ptag">Student Management</span>
+                <span class="ptag">Lead Tracking</span>
+                <span class="ptag">Booking Management</span>
+                <span class="ptag">Payment Tracking</span>
+                <span class="ptag">Role-Based Access</span>
+              </div>
+              <div class="project-tags">
+                <span class="ptag">Next.js</span>
+                <span class="ptag">Cloudflare D1</span>
+                <span class="ptag">Cloudflare R2</span>
+                <span class="ptag">Drizzle ORM</span>
+                <span class="ptag">Cloudflare Workers</span>
+              </div>
+              <div class="project-actions">
+                <span class="btn-link disabled">Private project</span>
+              </div>
+            </div>
+          </li>
+
+        </ul>
+
+        <div class="other-builds reveal">
+          <p class="ob-label">Also built</p>
+          <div class="ob-row">
+            <div class="ob-main">
+              <span class="ob-title">Mini Air Quality Indicator</span>
+              <span class="ob-desc">Arduino-based sensor system that reads and displays air quality levels — a hands-on introduction to embedded systems outside the browser.</span>
+            </div>
+            <a class="btn-link" href="https://docs.google.com/document/d/1trOemhtMTBDQcVFakNvaIeFpyDrc54tOmVHbfbeluYA/edit?usp=sharing" target="_blank" rel="noopener">Documentation ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ ABOUT ═══ -->
+    <section id="about" aria-labelledby="about-title">
+      <div class="container">
+        <div class="about-grid">
+          <div class="sec-head reveal" style="margin-bottom:0;">
+            <p class="eyebrow">About</p>
+            <h2 class="sec-title" id="about-title">Who I am</h2>
+          </div>
+          <div class="about-text reveal" style="--i:1;">
+            <p>I'm a first-year Mechanical Engineering student at MITAOE, Pune, who spends most of my time building software. What started as a single college-admission predictor grew into <strong>TwinSparkTech</strong> — an ecosystem of prediction tools, a government data pipeline, and a counselling CRM used across the MHT-CET admissions cycle.</p>
+            <p>I care about shipping things that work over things that look impressive in a submission — extracting real data out of messy government PDFs, caching it properly, and building interfaces that get out of the way.</p>
+            <p><strong>Currently focused on:</strong> making TwinSparkTech faster and more reliable, and going deeper on backend and cloud fundamentals.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ STACK ═══ -->
+    <section id="stack" aria-labelledby="stack-title">
+      <div class="container">
+        <div class="sec-head reveal">
+          <p class="eyebrow">Stack</p>
+          <h2 class="sec-title" id="stack-title">Technologies</h2>
+        </div>
+
+        <div class="stack-groups reveal">
+          <div>
+            <p class="stack-group-label">Languages</p>
+            <ul class="stack-list">
+              <li>JavaScript</li>
+              <li>Python</li>
+              <li>Java</li>
+              <li>C</li>
+            </ul>
+          </div>
+          <div>
+            <p class="stack-group-label">Frontend</p>
+            <ul class="stack-list">
+              <li>HTML</li>
+              <li>CSS</li>
+              <li>Next.js</li>
+            </ul>
+          </div>
+          <div>
+            <p class="stack-group-label">Cloud &amp; Infra</p>
+            <ul class="stack-list">
+              <li>Cloudflare Workers</li>
+              <li>Cloudflare KV</li>
+              <li>Cloudflare D1</li>
+              <li>Cloudflare R2</li>
+              <li>Drizzle ORM</li>
+              <li>Firebase</li>
+              <li>Netlify</li>
+            </ul>
+          </div>
+          <div>
+            <p class="stack-group-label">Engineering &amp; CAD</p>
+            <ul class="stack-list">
+              <li>AutoCAD</li>
+              <li>Fusion 360</li>
+              <li>Mechanical Design</li>
+              <li>Engineering Drawing</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ EXPERIENCE / EDUCATION ═══ -->
+    <section id="experience" aria-labelledby="experience-title">
+      <div class="container">
+        <div class="sec-head reveal">
+          <p class="eyebrow">Experience</p>
+          <h2 class="sec-title" id="experience-title">Education &amp; building</h2>
+        </div>
+
+        <ul class="exp-list reveal">
+          <li class="exp-row">
+            <span class="exp-period">2025 — Present</span>
+            <div>
+              <div class="exp-title">Independent Software Builder</div>
+              <div class="exp-org">TwinSparkTech</div>
+              <p class="exp-desc">Designing, building, and maintaining the TwinSparkTech ecosystem alongside coursework — prediction engines, the government data pipeline, and CounselDesk CRM.</p>
+            </div>
+          </li>
+          <li class="exp-row">
+            <span class="exp-period">2025 — 2029</span>
+            <div>
+              <div class="exp-title">B.Tech, Mechanical Engineering</div>
+              <div class="exp-org">MITAOE, Pune</div>
+              <p class="exp-desc">First year, in progress. Splitting time between mechanical coursework and independent software projects.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ═══ CONTACT ═══ -->
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="contact-grid">
+          <div class="reveal">
+            <p class="eyebrow">Contact</p>
+            <h2 class="sec-title" id="contact-title">Let's talk</h2>
+            <p class="contact-intro">Open to conversations about engineering, tooling, or ideas worth building. Reach out directly, or send a message.</p>
+            <div class="contact-links">
+              <a href="https://twinsparktech.online/" class="clink" target="_blank" rel="noopener"><span>Live site — TwinSparkTech</span><span class="arrow">↗</span></a>
+              <a href="https://github.com/HarshvardhanL02" class="clink" target="_blank" rel="noopener"><span>GitHub — HarshvardhanL02</span><span class="arrow">↗</span></a>
+            </div>
+          </div>
+
+          <div class="reveal" style="--i:1;">
+            <form id="contact-form" novalidate>
+              <div class="cf-group">
+                <input class="cf-input" type="text" id="cf-name" placeholder="Your name" autocomplete="off" />
+                <label class="cf-label" for="cf-name">Name</label>
+                <div class="cf-error" id="cf-name-err">Name is required</div>
+              </div>
+              <div class="cf-group">
+                <input class="cf-input" type="email" id="cf-email" placeholder="your@email.com" autocomplete="off" />
+                <label class="cf-label" for="cf-email">Email</label>
+                <div class="cf-error" id="cf-email-err">Valid email required</div>
+              </div>
+              <div class="cf-group">
+                <textarea class="cf-textarea" id="cf-msg" placeholder="What's on your mind?"></textarea>
+                <label class="cf-label" for="cf-msg">Message</label>
+                <div class="cf-error" id="cf-msg-err">Message is required</div>
+              </div>
+              <button type="submit" class="cf-submit">Send message</button>
+
+              <div class="cf-success" id="cf-success" role="status" aria-live="polite" tabindex="-1">
+                <div class="cf-success-icon" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                </div>
+                <div class="cf-success-title">Message sent</div>
+                <p class="cf-success-text">This is a demo form — no backend is connected yet, but validation and the flow are fully functional.</p>
+                <button type="button" class="cf-reset" id="cf-reset">Send another</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="container footer-inner">
+      <span class="footer-copy">© <span id="footer-year"></span> Harshvardhan Lokhande</span>
+      <div class="footer-links">
+        <a href="https://github.com/HarshvardhanL02" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://twinsparktech.online/" target="_blank" rel="noopener">Live Site</a>
+        <a href="#top">Back to top</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* ============================================================
+         REVEAL ON SCROLL
+      ============================================================ */
+      var reveals = document.querySelectorAll('.reveal');
+      if (reduceMotion) {
+        reveals.forEach(function (r) { r.classList.add('in-view'); });
+      } else {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        reveals.forEach(function (r) { io.observe(r); });
+      }
+
+      /* ============================================================
+         NAV — border on scroll + mobile toggle
+      ============================================================ */
+      var nav = document.getElementById('nav');
+      function updateNavBorder() {
+        nav.classList.toggle('scrolled', window.scrollY > 8);
+      }
+      window.addEventListener('scroll', updateNavBorder, { passive: true });
+      updateNavBorder();
+
+      var navToggle = document.getElementById('nav-toggle');
+      var navMobile = document.getElementById('nav-mobile');
+      navToggle.addEventListener('click', function () {
+        var open = navMobile.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      navMobile.querySelectorAll('a').forEach(function (a) {
+        a.addEventListener('click', function () {
+          navMobile.classList.remove('open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      /* ============================================================
+         FOOTER YEAR
+      ============================================================ */
+      var footerYear = document.getElementById('footer-year');
+      if (footerYear) footerYear.textContent = new Date().getFullYear();
+
+      /* ============================================================
+         CONTACT FORM
+      ============================================================ */
+      var form = document.getElementById('contact-form');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var valid = true;
+        var name = document.getElementById('cf-name');
+        var email = document.getElementById('cf-email');
+        var msg = document.getElementById('cf-msg');
+        var nameErr = document.getElementById('cf-name-err');
+        var emailErr = document.getElementById('cf-email-err');
+        var msgErr = document.getElementById('cf-msg-err');
+        nameErr.classList.remove('show'); emailErr.classList.remove('show'); msgErr.classList.remove('show');
+        if (!name.value.trim()) { nameErr.classList.add('show'); valid = false; }
+        if (!email.value.trim() || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email.value)) { emailErr.classList.add('show'); valid = false; }
+        if (!msg.value.trim()) { msgErr.classList.add('show'); valid = false; }
+        if (valid) {
+          Array.prototype.forEach.call(form.querySelectorAll('.cf-group, .cf-submit'), function (el) { el.style.display = 'none'; });
+          var success = document.getElementById('cf-success');
+          success.classList.add('show');
+          success.focus();
+        }
+      });
+      document.getElementById('cf-reset').addEventListener('click', function () {
+        document.getElementById('cf-success').classList.remove('show');
+        Array.prototype.forEach.call(form.querySelectorAll('.cf-group, .cf-submit'), function (el) { el.style.display = ''; });
+        form.reset();
+        document.getElementById('cf-name').focus();
+      });
+
+      /* ============================================================
+         SMOOTH SCROLL (anchor links)
+      ============================================================ */
+      document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+        a.addEventListener('click', function (e) {
+          var id = this.getAttribute('href');
+          if (id.length < 2) return;
+          var target = document.querySelector(id);
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+          }
+        });
+      });
+
+    })();
+  </script>
+</body>
+</html>
