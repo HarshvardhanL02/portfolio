@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, X, Github, ArrowUpRight, FileDown } from "lucide-react";
+import { Menu, X, Github, ArrowUpRight } from "lucide-react";
 
 const navLinks = [
-  { label: "Work", href: "#projects" },
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
+  { label: "Projects", href: "#projects" },
   { label: "Experience", href: "#experience" },
+  { label: "Skills", href: "#skills" },
+  { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -42,29 +42,32 @@ export function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-[#0a0a0b]/85 backdrop-blur-xl border-b border-white/[0.08] shadow-lg shadow-black/20"
+          ? "bg-[#09090b]/90 backdrop-blur-xl border-b border-white/[0.08] shadow-lg shadow-black/40"
           : "bg-transparent backdrop-blur-none border-b border-transparent"
       }`}
     >
-      <div className="mx-auto max-w-6xl px-6">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <div className="flex h-16 items-center justify-between">
-          {/* Logo */}
+          
+          {/* Authentic name branding */}
           <a
             href="#top"
             onClick={(e) => handleNavClick(e, "#top")}
-            className="text-sm font-semibold tracking-tight text-white transition-colors hover:text-[#3b82f6]"
+            className="flex items-center gap-2 group"
           >
-            Harshvardhan Lokhande
+            <span className="font-sans text-sm font-bold tracking-tight text-white hover:text-neutral-300 transition-colors">
+              Harshvardhan Lokhande
+            </span>
           </a>
 
-          {/* Desktop Nav */}
-          <div className="hidden items-center gap-1 md:flex">
+          {/* Desktop Navigation Links */}
+          <div className="hidden items-center gap-1 md:flex font-mono text-xs">
             {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className="relative rounded-lg px-3.5 py-2 text-[13px] font-medium text-neutral-400 transition-colors hover:text-white"
+                className="rounded-lg px-3.5 py-1.5 text-[#9296a1] hover:text-white hover:bg-white/5 transition-colors"
               >
                 {link.label}
               </a>
@@ -72,39 +75,31 @@ export function Navbar() {
           </div>
 
           {/* Right Actions */}
-          <div className="hidden items-center gap-3 md:flex">
-            <a
-              href="/resume.pdf"
-              download="Harshvardhan_Lokhande_Resume.pdf"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 px-3 py-1.5 text-xs font-mono text-[#a3a3a8] hover:text-white hover:border-[#3b82f6]/50 transition-all"
-              title="Download Resume PDF"
-            >
-              <FileDown className="h-3.5 w-3.5 text-[#3b82f6]" />
-              <span>Resume</span>
-            </a>
+          <div className="hidden items-center gap-3 md:flex font-mono text-xs">
             <a
               href="https://github.com/HarshvardhanL02"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex h-9 w-9 items-center justify-center rounded-lg text-neutral-400 transition-colors hover:bg-white/[0.06] hover:text-white"
-              aria-label="GitHub"
+              className="flex items-center gap-1.5 rounded-lg border border-white/10 px-3 py-1.5 text-[#9296a1] hover:text-white hover:border-white/20 transition-all"
             >
-              <Github className="h-[18px] w-[18px]" />
+              <Github className="w-3.5 h-3.5" />
+              <span>GitHub</span>
             </a>
+
             <a
               href="#contact"
               onClick={(e) => handleNavClick(e, "#contact")}
-              className="group inline-flex items-center gap-1.5 rounded-lg bg-[#3b82f6] px-4 py-2 text-[13px] font-medium text-white transition-all hover:bg-[#2563eb] hover:shadow-lg hover:shadow-[#3b82f6]/20"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-[#a3ff5f] px-3.5 py-1.5 font-semibold text-black transition-all hover:bg-[#b8ff82]"
             >
-              Contact
-              <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              <span>Contact</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="flex h-9 w-9 items-center justify-center rounded-lg text-neutral-400 transition-colors hover:bg-white/[0.06] hover:text-white md:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-lg text-neutral-400 hover:text-white md:hidden"
             aria-label="Toggle menu"
           >
             {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -114,33 +109,24 @@ export function Navbar() {
 
       {/* Mobile Menu Panel */}
       {isOpen && (
-        <div className="border-b border-white/[0.08] bg-[#0a0a0b]/95 backdrop-blur-2xl md:hidden px-6 py-4 space-y-2">
+        <div className="border-b border-white/[0.08] bg-[#09090b]/98 backdrop-blur-2xl md:hidden px-6 py-4 space-y-2 font-mono text-xs">
           {navLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={(e) => handleNavClick(e, link.href)}
-              className="block rounded-lg px-3 py-2 text-sm font-medium text-neutral-300 hover:bg-white/[0.04] hover:text-white"
+              className="block py-2 text-[#9296a1] hover:text-white"
             >
               {link.label}
             </a>
           ))}
-          <div className="pt-3 border-t border-white/[0.06] flex items-center justify-between">
+          <div className="pt-3 border-t border-white/10 flex gap-2">
             <a
-              href="/resume.pdf"
-              download="Harshvardhan_Lokhande_Resume.pdf"
-              className="inline-flex items-center gap-1.5 text-xs font-mono text-[#3b82f6]"
+              href="#contact"
+              onClick={(e) => handleNavClick(e, "#contact")}
+              className="flex-1 text-center py-2 rounded bg-[#a3ff5f] text-black font-semibold"
             >
-              <FileDown className="h-4 w-4" />
-              Download Resume
-            </a>
-            <a
-              href="https://github.com/HarshvardhanL02"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-neutral-400 hover:text-white"
-            >
-              <Github className="h-5 w-5" />
+              Contact
             </a>
           </div>
         </div>

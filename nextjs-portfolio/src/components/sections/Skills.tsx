@@ -1,64 +1,80 @@
 "use client";
 
-import { skillsData } from "@/lib/data";
 import { Reveal } from "@/components/ui/Reveal";
+
+interface SkillGroup {
+  category: string;
+  skills: string[];
+}
+
+const verifiedSkills: SkillGroup[] = [
+  {
+    category: "Languages",
+    skills: ["JavaScript (ES6+)", "Python", "HTML5", "CSS3 / Tailwind"],
+  },
+  {
+    category: "Frameworks & Libraries",
+    skills: ["Next.js", "React", "Node.js (Basics)"],
+  },
+  {
+    category: "Backend & Data",
+    skills: ["Firebase Firestore", "REST APIs", "JSON Data Schemas"],
+  },
+  {
+    category: "CAD & Hardware",
+    skills: ["AutoCAD", "Autodesk Fusion 360", "Autodesk ReCap", "Arduino / C++"],
+  },
+  {
+    category: "Product & Operations",
+    skills: ["Product Requirements (PRDs)", "Workflow Design", "Data Analysis", "Spreadsheet Modeling"],
+  },
+];
 
 export function Skills() {
   return (
-    <section id="skills" className="py-24 md:py-32 border-t border-white/10">
-      <div className="max-w-[1160px] mx-auto px-5 md:px-8 lg:px-16">
-        {/* Header */}
-        <Reveal>
-          <p className="font-mono text-xs uppercase tracking-widest text-[#6b6b70] mb-4">
-            Stack
-          </p>
-        </Reveal>
-        <Reveal delay={80}>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-12 md:mb-16">
-            Technologies &amp; Skills
+    <section id="skills" className="py-24 max-w-6xl mx-auto px-5 sm:px-8 space-y-12 border-t border-white/10">
+      
+      {/* Section Header */}
+      <div className="flex flex-col sm:flex-row justify-between sm:items-end gap-4 border-b border-white/10 pb-6">
+        <div>
+          <span className="font-mono text-xs uppercase text-[#a3ff5f] font-semibold tracking-wider">
+            Technical Stack
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-1">
+            Skills &amp; Technologies
           </h2>
-        </Reveal>
-
-        {/* 4-col grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {skillsData.map((category, i) => (
-            <Reveal key={category.label} delay={120 + i * 80}>
-              <div
-                className="group relative bg-[#111113] border border-white/10 rounded-xl p-6
-                           transition-all duration-300
-                           hover:border-[#3b82f6]/40 hover:shadow-[0_0_24px_-6px_rgba(59,130,246,0.15)]"
-              >
-                {/* Top accent glow bar */}
-                <div
-                  className="absolute inset-x-0 top-0 h-[2px] rounded-t-xl bg-gradient-to-r
-                             from-transparent via-[#3b82f6] to-transparent
-                             opacity-0 group-hover:opacity-100
-                             transition-opacity duration-500"
-                />
-
-                {/* Category label */}
-                <p className="font-mono text-[11px] uppercase tracking-widest text-[#6b6b70] mb-4">
-                  {category.label}
-                </p>
-
-                {/* Skills list */}
-                <ul className="space-y-2">
-                  {category.skills.map((skill) => (
-                    <li
-                      key={skill}
-                      className="text-sm text-[#a3a3a8] flex items-center gap-2
-                                 group-hover:text-[#c8c8cc] transition-colors duration-300"
-                    >
-                      <span className="w-1 h-1 rounded-full bg-[#3b82f6]/60 shrink-0" />
-                      {skill}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </Reveal>
-          ))}
         </div>
+        <p className="font-mono text-xs text-[#9296a1]">
+          Tools and technologies applied across software projects and engineering coursework
+        </p>
       </div>
+
+      {/* Skills Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {verifiedSkills.map((group, idx) => (
+          <Reveal key={group.category} delay={80 + idx * 50}>
+            <div className="rounded-xl bg-[#111318] border border-white/10 p-6 space-y-4 hover:border-white/20 transition h-full">
+              <h3 className="text-base font-bold text-white font-sans border-b border-white/5 pb-2">
+                {group.category}
+              </h3>
+
+              <div className="flex flex-wrap gap-2">
+                {group.skills.map((skill) => (
+                  <span
+                    key={skill}
+                    className="font-mono text-xs px-2.5 py-1 rounded bg-[#181a20] border border-white/10 text-neutral-200"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+
     </section>
   );
 }
+
+export default Skills;

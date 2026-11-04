@@ -1,232 +1,87 @@
 "use client";
 
-import { useState } from "react";
-import {
-  experienceData,
-  educationData,
-  certificationsData,
-} from "@/lib/data";
 import { Reveal } from "@/components/ui/Reveal";
-import { Briefcase, GraduationCap, Building2, Award } from "lucide-react";
-
-const dotColors: Record<string, string> = {
-  work: "bg-[#3b82f6]",
-  education: "bg-[#22c55e]",
-  project: "bg-[#a855f7]",
-};
-
-const dotGlow: Record<string, string> = {
-  work: "shadow-[0_0_8px_2px_rgba(59,130,246,0.4)]",
-  education: "shadow-[0_0_8px_2px_rgba(34,197,94,0.4)]",
-  project: "shadow-[0_0_8px_2px_rgba(168,85,247,0.4)]",
-};
-
-const typeIcon: Record<string, React.ReactNode> = {
-  work: <Briefcase className="w-3.5 h-3.5" />,
-  education: <GraduationCap className="w-3.5 h-3.5" />,
-  project: <Building2 className="w-3.5 h-3.5" />,
-};
+import { Briefcase, MapPin, Calendar } from "lucide-react";
 
 export function Experience() {
-  const [expanded, setExpanded] = useState<number | null>(null);
-
   return (
-    <section
-      id="experience"
-      className="py-24 md:py-32 border-t border-white/10"
-    >
-      <div className="max-w-[1160px] mx-auto px-5 md:px-8 lg:px-16">
-        {/* Header */}
-        <Reveal>
-          <p className="font-mono text-xs uppercase tracking-widest text-[#6b6b70] mb-4">
+    <section id="experience" className="py-24 max-w-6xl mx-auto px-5 sm:px-8 space-y-12 border-t border-white/10">
+      
+      {/* Section Header */}
+      <div className="flex flex-col sm:flex-row justify-between sm:items-end gap-4 border-b border-white/10 pb-6">
+        <div>
+          <span className="font-mono text-xs uppercase text-[#a3ff5f] font-semibold tracking-wider">
             Experience
-          </p>
-        </Reveal>
-        <Reveal delay={80}>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-14 md:mb-20">
-            Journey &amp; Education
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-1">
+            Work &amp; Internship
           </h2>
-        </Reveal>
-
-        {/* ─── Timeline ────────────────────────────────────────── */}
-        <div className="relative ml-4 md:ml-6">
-          {/* Vertical line */}
-          <div className="absolute left-0 top-2 bottom-2 w-px bg-white/10" />
-
-          <div className="space-y-10">
-            {experienceData.map((item, i) => (
-              <Reveal key={i} delay={120 + i * 100}>
-                <div className="relative pl-8 md:pl-10 group">
-                  {/* Dot */}
-                  <span
-                    className={`absolute left-0 top-[7px] -translate-x-1/2 w-3 h-3 rounded-full border-2 border-[#09090b]
-                                ${dotColors[item.type]} ${dotGlow[item.type]}`}
-                  />
-
-                  {/* Period + Current badge */}
-                  <div className="flex items-center gap-3 mb-1.5">
-                    <span className="font-mono text-xs text-[#6b6b70]">
-                      {item.period}
-                    </span>
-                    {item.current && (
-                      <span className="inline-flex items-center gap-1 text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 rounded-full bg-[#3b82f6]/10 text-[#3b82f6] border border-[#3b82f6]/20">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#3b82f6] animate-pulse" />
-                        Current
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="text-lg font-semibold tracking-tight flex items-center gap-2">
-                    <span className="text-[#6b6b70]">
-                      {typeIcon[item.type]}
-                    </span>
-                    {item.title}
-                  </h3>
-
-                  {/* Org */}
-                  <p className="text-sm text-[#3b82f6] mt-0.5">{item.org}</p>
-
-                  {/* Location */}
-                  {item.location && (
-                    <p className="text-xs text-[#6b6b70] mt-0.5">
-                      {item.location}
-                    </p>
-                  )}
-
-                  {/* Description */}
-                  <p className="text-sm text-[#a3a3a8] leading-relaxed mt-3">
-                    {item.description}
-                  </p>
-
-                  {/* Expandable responsibilities (first entry — internship) */}
-                  {item.responsibilities && item.responsibilities.length > 0 && (
-                    <div className="mt-3">
-                      <button
-                        onClick={() =>
-                          setExpanded(expanded === i ? null : i)
-                        }
-                        className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-widest
-                                   text-[#6b6b70] hover:text-white transition-colors duration-200"
-                      >
-                        <svg
-                          className={`w-3 h-3 transition-transform duration-300 ${
-                            expanded === i ? "rotate-90" : ""
-                          }`}
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={2}
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M9 5l7 7-7 7"
-                          />
-                        </svg>
-                        {expanded === i
-                          ? "Hide responsibilities"
-                          : "View responsibilities"}
-                      </button>
-
-                      <div
-                        className={`overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                          expanded === i
-                            ? "max-h-[600px] opacity-100 mt-3"
-                            : "max-h-0 opacity-0"
-                        }`}
-                      >
-                        <ul className="space-y-2 pl-4 border-l border-white/5">
-                          {item.responsibilities.map((resp, j) => (
-                            <li
-                              key={j}
-                              className="text-sm text-[#a3a3a8] leading-relaxed relative pl-4
-                                         before:content-[''] before:absolute before:left-0 before:top-[9px]
-                                         before:w-1.5 before:h-1.5 before:rounded-full before:bg-[#3b82f6]/40"
-                            >
-                              {resp}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </Reveal>
-            ))}
-          </div>
         </div>
+        <p className="font-mono text-xs text-[#9296a1]">
+          Practical product development and operational workflow engineering
+        </p>
+      </div>
 
-        {/* ─── Education Details ───────────────────────────────── */}
-        <Reveal delay={100}>
-          <div className="mt-20 md:mt-24">
-            <div className="flex items-center gap-2 mb-6">
-              <GraduationCap className="w-5 h-5 text-[#22c55e]" />
-              <h3 className="font-mono text-xs uppercase tracking-widest text-[#6b6b70]">
-                Education
+      {/* Main Experience Card */}
+      <Reveal delay={80}>
+        <div className="rounded-2xl bg-[#111318] border border-white/10 p-6 sm:p-8 space-y-6">
+          
+          {/* Header Row */}
+          <div className="flex flex-col sm:flex-row justify-between items-start gap-4 pb-6 border-b border-white/5">
+            <div>
+              <div className="inline-flex items-center gap-2 font-mono text-xs px-2.5 py-1 rounded bg-[#a3ff5f]/10 border border-[#a3ff5f]/30 text-[#a3ff5f] mb-3">
+                <Briefcase className="w-3.5 h-3.5" />
+                <span>Internship</span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
+                Product &amp; Management Intern
               </h3>
-            </div>
-
-            <div className="bg-[#111113] border border-white/10 rounded-xl p-6 md:p-8">
-              <h4 className="text-lg font-semibold tracking-tight">
-                {educationData.degree}
-              </h4>
-              <p className="text-sm text-[#3b82f6] mt-1">
-                {educationData.institution}
-              </p>
-              <p className="text-xs text-[#6b6b70] mt-0.5">
-                {educationData.affiliation}
-              </p>
-              <p className="text-xs text-[#a3a3a8] mt-1">
-                {educationData.graduation}
-              </p>
-
-              {/* Coursework tags */}
-              <div className="mt-5">
-                <p className="font-mono text-[11px] uppercase tracking-widest text-[#6b6b70] mb-3">
-                  Relevant Coursework
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {educationData.coursework.map((course) => (
-                    <span
-                      key={course}
-                      className="text-xs px-3 py-1 rounded-full bg-white/5 text-[#a3a3a8] border border-white/10"
-                    >
-                      {course}
-                    </span>
-                  ))}
-                </div>
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-[#9296a1] mt-1 font-mono">
+                <span className="text-white font-medium">Aditya Counselling Private Limited</span>
+                <span>•</span>
+                <span className="flex items-center gap-1">
+                  <MapPin className="w-3.5 h-3.5 text-neutral-500" />
+                  <span>Pune, Maharashtra</span>
+                </span>
               </div>
             </div>
-          </div>
-        </Reveal>
 
-        {/* ─── Certifications ─────────────────────────────────── */}
-        <Reveal delay={200}>
-          <div className="mt-12 md:mt-16">
-            <div className="flex items-center gap-2 mb-6">
-              <Award className="w-5 h-5 text-[#a855f7]" />
-              <h3 className="font-mono text-xs uppercase tracking-widest text-[#6b6b70]">
-                Certifications
-              </h3>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              {certificationsData.map((cert) => (
-                <div
-                  key={cert}
-                  className="flex items-center gap-3 text-sm text-[#a3a3a8] py-2.5 px-4
-                             bg-[#111113] border border-white/10 rounded-lg
-                             hover:border-[#a855f7]/30 transition-colors duration-200"
-                >
-                  <span className="w-1 h-1 rounded-full bg-[#a855f7]/60 shrink-0" />
-                  {cert}
-                </div>
-              ))}
+            <div className="flex items-center gap-1.5 font-mono text-xs px-3 py-1.5 rounded bg-[#181a20] border border-white/10 text-neutral-300">
+              <Calendar className="w-3.5 h-3.5 text-[#a3ff5f]" />
+              <span>April 2026 – Present</span>
             </div>
           </div>
-        </Reveal>
-      </div>
+
+          {/* Role Summary */}
+          <p className="text-base text-[#f4f4f5] leading-relaxed">
+            Working on internal tools, web products, and the CounselDesk student management platform while supporting product management operations.
+          </p>
+
+          {/* Clean bulleted list */}
+          <ul className="space-y-3 text-sm text-[#9296a1] leading-relaxed">
+            <li className="flex items-start gap-2.5">
+              <span className="text-white mt-1">•</span>
+              <span>Developing and maintaining internal web platforms and workflow tools to organize student admissions records and counselor assignments.</span>
+            </li>
+            <li className="flex items-start gap-2.5">
+              <span className="text-white mt-1">•</span>
+              <span>Contributing to the frontend implementation of the CounselDesk platform, focusing on student intake forms, status tags, and verification checklists.</span>
+            </li>
+            <li className="flex items-start gap-2.5">
+              <span className="text-white mt-1">•</span>
+              <span>Built dedicated mentor and student list-generation tools that eliminated manual spreadsheet tracking during high-volume counseling periods.</span>
+            </li>
+            <li className="flex items-start gap-2.5">
+              <span className="text-white mt-1">•</span>
+              <span>Assisting with product requirement scoping (PRDs), gathering feedback from counseling staff, and performing user acceptance testing.</span>
+            </li>
+          </ul>
+
+        </div>
+      </Reveal>
+
     </section>
   );
 }
+
+export default Experience;

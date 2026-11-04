@@ -9,35 +9,36 @@ const inter = Inter({
 });
 
 export const viewport: Viewport = {
-  themeColor: "#0a0a0b",
+  themeColor: "#09090b",
   width: "device-width",
   initialScale: 1,
 };
 
 export const metadata: Metadata = {
-  title: "Harshvardhan Lokhande — Mechanical Engineering Student | Software Developer",
+  title: "Harshvardhan Lokhande — Developer, Product Builder & Mechanical Engineering Student",
   description:
-    "Harshvardhan Lokhande — Mechanical Engineering Student, Software Developer, Product & Technology. Building at the intersection of engineering, software, and product management.",
+    "Personal portfolio of Harshvardhan Lokhande. Developer and technology builder combining software engineering, product workflows, and mechanical engineering fundamentals.",
   keywords: [
     "Harshvardhan Lokhande",
-    "portfolio",
-    "mechanical engineering",
-    "software developer",
+    "Developer",
+    "Product Builder",
+    "Mechanical Engineering",
     "TwinSparkTech",
-    "product management",
-    "web development",
-    "MITAOE",
+    "CounselDesk",
+    "Next.js",
+    "Python",
+    "MITAOE Pune",
   ],
   authors: [{ name: "Harshvardhan Lokhande" }],
   openGraph: {
-    title: "Harshvardhan Lokhande — Portfolio",
+    title: "Harshvardhan Lokhande — Developer & Product Builder",
     description:
-      "Mechanical Engineering Student | Software Developer | Product & Technology",
+      "Developer & Mechanical Engineering Student at MIT Academy of Engineering, Pune.",
     type: "website",
     url: "https://twinsparktech.online",
   },
   icons: {
-    icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0a0b'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-weight='700' font-size='28' fill='%23fafafa' text-anchor='middle'%3EHL%3C/text%3E%3C/svg%3E",
+    icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2309090b'/%3E%3Ctext x='32' y='42' font-family='sans-serif' font-weight='700' font-size='26' fill='%23a3ff5f' text-anchor='middle'%3EHL%3C/text%3E%3C/svg%3E",
   },
 };
 
@@ -48,10 +49,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className="font-sans antialiased bg-[#0a0a0b] text-[#fafafa]">
-        <div className="gradient-bg" />
-        <div className="grid-pattern" />
-        <div className="noise" />
+      <body className="font-sans antialiased bg-[#09090b] text-[#f4f4f5] min-h-screen">
         {children}
       </body>
     </html>
